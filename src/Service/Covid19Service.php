@@ -55,11 +55,11 @@ class Covid19Service
 
             return <<< MESSAGE
 Salut l'équipe voici les dernières actualités sur le covid en RDC \n
--> Cas Confirmés : {$stats['confirmed']}
--> Guérisons : {$stats['recovered']}
--> Morts : {$stats['deaths']}
+🤒 Cas Confirmés : **{$stats['confirmed']}**
+✨ Guérisons : **{$stats['recovered']}**
+😓 Morts : **{$stats['deaths']}**
 
-{$date}
+**{$date}**
 MESSAGE;
         }
         return null;

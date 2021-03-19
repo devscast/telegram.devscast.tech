@@ -6,6 +6,7 @@ namespace App\EventSubscriber;
 
 use App\Event\BitcoinUpdateEvent;
 use App\Event\Covid19UpdateEvent;
+use App\Event\Github\GithubIssueUpdateEvent;
 use App\Event\MessageUpdateEventInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -43,7 +44,8 @@ class UpdateSubscriber implements EventSubscriberInterface
     {
         return [
             Covid19UpdateEvent::class => 'onMessageUpdate',
-            BitcoinUpdateEvent::class => 'onMessageUpdate'
+            BitcoinUpdateEvent::class => 'onMessageUpdate',
+            GithubIssueUpdateEvent::class => 'onMessageUpdate'
         ];
     }
 
