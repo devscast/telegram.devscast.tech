@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use App\Event\BitcoinUpdateEvent;
 use App\Event\Covid19UpdateEvent;
+use App\Event\MessageUpdateEventInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Notifier\ChatterInterface;
@@ -40,15 +42,16 @@ class UpdateSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            Covid19UpdateEvent::class => 'onCovid19Update'
+            Covid19UpdateEvent::class => 'onMessageUpdate',
+            BitcoinUpdateEvent::class => 'onMessageUpdate'
         ];
     }
 
     /**
-     * @param Covid19UpdateEvent $event
+     * @param MessageUpdateEventInterface $event
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function onCovid19Update(Covid19UpdateEvent $event): void
+    public function onMessageUpdate(MessageUpdateEventInterface $event): void
     {
         try {
             $message = new ChatMessage($event->getUpdate());

@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Event;
 
 /**
- * Class Covid19UpdateEvent
+ * Class BitcoinUpdateEvent
  * @package App\Event
  * @author bernard-ng <ngandubernard@gmail.com>
  */
-class Covid19UpdateEvent implements MessageUpdateEventInterface
+class BitcoinUpdateEvent implements MessageUpdateEventInterface
 {
     private string $update;
 
     /**
-     * Covid19UpdateEvent constructor.
+     * BitcoinUpdateEvent constructor.
      * @param string $update
      * @author bernard-ng <ngandubernard@gmail.com>
      */
