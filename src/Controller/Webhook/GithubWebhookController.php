@@ -7,7 +7,6 @@ namespace App\Controller\Webhook;
 use App\Service\Github\PlayLoadService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class GithubWebhookController
@@ -17,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class GithubWebhookController
 {
     /**
-     * @Route("", name="app_main")
      * @param Request $request
      * @return Response
      * @author bernard-ng <ngandubernard@gmail.com>
@@ -28,7 +26,6 @@ class GithubWebhookController
     }
 
     /**
-     * @Route("/webhook/github", name="app_webhook_github", methods={"POST"})
      * @param Request $request
      * @param PlayLoadService $service
      * @return Response
