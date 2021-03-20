@@ -6,6 +6,8 @@ namespace App\Service\Github;
 
 use App\Event\Github\GithubIssueUpdateEvent;
 use App\Event\Github\Webhook\IssuesEvent;
+use App\Event\Github\Webhook\PingEvent;
+use App\Event\Github\Webhook\PushEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -40,8 +42,14 @@ class PlayLoadService
         $data = json_decode($request->getContent(), true);
 
         switch ($event) {
+            case 'ping':
+                $this->dispatcher->dispatch(new PingEvent("ping", $guid, $data));
+                break;
             case 'issues':
                 $this->dispatcher->dispatch(new IssuesEvent("issues", $guid, $data));
+                break;
+            case 'push':
+                $this->dispatcher->dispatch(new PushEvent("push", $guid, $data));
         }
     }
 }
