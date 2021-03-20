@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/webhook", name="app_webhook_")
  * Class GithubWebhookController
  * @package App\Controller\Webhook
  * @author bernard-ng <ngandubernard@gmail.com>
@@ -18,7 +17,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class GithubWebhookController
 {
     /**
-     * @Route("/github", name="github", methods={"POST"})
+     * @Route("", name="app_main")
+     * @param Request $request
+     * @return Response
+     * @author bernard-ng <ngandubernard@gmail.com>
+     */
+    public function main(Request $request): Response
+    {
+        return new Response(null, Response::HTTP_OK);
+    }
+
+    /**
+     * @Route("/webhook/github", name="app_webhook_github", methods={"POST"})
      * @param Request $request
      * @param PlayLoadService $service
      * @return Response
