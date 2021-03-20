@@ -74,11 +74,14 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
         $project = $data['repository']['name'];
         $pusher = $data['pusher']['name'];
         $message = $data['head_commit']['message'];
+        $date = date('d M Y H:i');
 
         $message = <<< MESSAGE
-⬆️ Push sur le project {$project}
-🗒 {$message} <{$commit}>
+⬆️ Push : {$project}
+🗒 {$commit} : {$message}
+
 👨‍💻 {$pusher}
+🕒 {$date}
 MESSAGE;
 
         try {
