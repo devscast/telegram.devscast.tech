@@ -104,16 +104,18 @@ MESSAGE;
                     $title = "#{$data['issue']['number']} {$data['issue']['title']}";
                     $assignee = $data['assignee']['login'];
                     $project = $data['repository']['name'];
+                    $date = date('d M Y H:i');
                     $message = <<< MESSAGE
-👨🏽‍🔧 Assignation de tache pour **{$assignee}**
-"{$title}" sur le projet {$project}
+👨🏽‍🔧 Assignation de tâche : {$project}
+
+{$title}
+
+👨‍💻 {$assignee}
+🕒 {$date}
 MESSAGE;
                     $this->notifier->send(new ChatMessage($message));
                     break;
             }
-
-
-            $this->notifier->send(new ChatMessage($event->getName() . " " . $event->getGuid()));
         } catch (TransportExceptionInterface $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         }
