@@ -6,6 +6,7 @@ namespace App\EventSubscriber;
 
 use App\Event\BitcoinUpdateEvent;
 use App\Event\Covid19UpdateEvent;
+use App\Event\EMailUpdateEvent;
 use App\Event\Github\GithubIssueUpdateEvent;
 use App\Event\MessageUpdateEventInterface;
 use Psr\Log\LoggerInterface;
@@ -45,7 +46,8 @@ class UpdateSubscriber implements EventSubscriberInterface
         return [
             Covid19UpdateEvent::class => 'onMessageUpdate',
             BitcoinUpdateEvent::class => 'onMessageUpdate',
-            GithubIssueUpdateEvent::class => 'onMessageUpdate'
+            GithubIssueUpdateEvent::class => 'onMessageUpdate',
+            EMailUpdateEvent::class => 'onMessageUpdate'
         ];
     }
 

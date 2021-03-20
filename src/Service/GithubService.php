@@ -51,6 +51,8 @@ sur le projet devscast.tech, voici un petit rappel et les tâches de chacun
 fermez l'issue sur github pour signaler que vous avez fini
 
 $message
+
+Prochain rappel demain à 12h
 MESSAGE;
     }
 }

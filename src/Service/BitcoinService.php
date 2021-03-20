@@ -46,6 +46,7 @@ voici le cours du Bitcoin maintenant : \n
 💰 1 BTC = **{$data['bpi']['GBP']['rate']} GBP**
 
 **{$data['time']['updated']}**
+Prochain rappel à 10h et 22h
 MESSAGE;
     }
 }

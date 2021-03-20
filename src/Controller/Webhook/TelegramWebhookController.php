@@ -10,14 +10,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/webhook", name="app_webhook_")
- * Class GithubWebhookController
+ * Class TelegramWebhookController
  * @package App\Controller\Webhook
  * @author bernard-ng <ngandubernard@gmail.com>
  */
-class GithubWebhookController
+class TelegramWebhookController
 {
     /**
-     * @Route("/github", name="github", methods={"POST"})
+     * @Route("/telegram", name="telegram", methods={"POST"})
      * @param Request $request
      * @return Response
      * @author bernard-ng <ngandubernard@gmail.com>

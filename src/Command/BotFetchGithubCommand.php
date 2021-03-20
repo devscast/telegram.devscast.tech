@@ -6,6 +6,7 @@ namespace App\Command;
 
 use App\Event\Github\GithubIssueUpdateEvent;
 use App\Service\GithubService;
+use Exception;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -45,8 +46,7 @@ class BotFetchGithubCommand extends Command
      */
     protected function configure()
     {
-        $this
-            ->setDescription('Interaction with Github');
+        $this->setDescription('Interaction with Github');
     }
 
     /**
@@ -57,13 +57,12 @@ class BotFetchGithubCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
         try {
             $update = $this->service->getIssues();
             $this->dispatcher->dispatch(new GithubIssueUpdateEvent($update));
             return Command::SUCCESS;
-        } catch (\Exception $e) {
-            $this->logger->error($e, $e->getTrace());
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), $e->getTrace());
             return Command::FAILURE;
         }
     }
