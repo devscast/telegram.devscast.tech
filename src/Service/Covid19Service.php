@@ -60,7 +60,7 @@ Salut l'équipe voici les dernières actualités sur le covid en RDC \n
 😓 Morts : **{$stats['deaths']}**
 
 **{$date}**
-Prochain rappel demain à 10h
+🕒 Prochain rappel demain à 10h
 MESSAGE;
         }
         return null;
