@@ -22,7 +22,7 @@ use Symfony\Component\Notifier\Message\ChatMessage;
  */
 class BotFetchEMailCommand extends Command
 {
-    protected static $defaultName = 'bot:fetch-mail';
+    protected static $defaultName = 'bot:fetch-email';
     private EMailService $service;
     private ChatterInterface $notifier;
     private LoggerInterface $logger;
