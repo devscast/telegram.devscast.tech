@@ -5,9 +5,19 @@ app_index:
 app_webhook_github:
     path: /webhook/github
     controller: App\Controller\Webhook\GithubWebhookController::index
-    methods: [POST]
+    methods: [ POST ]
 
 app_webhook_telegram:
     path: /webhook/telegram
     controller: App\Controller\Webhook\TelegramWebhookController::index
-    methods: [POST]
+    methods: [ POST ]
+
+auth_login_telegram:
+    path: /auth/login/telegram
+    controller: App\Controller\Auth\TelegramController::index
+    methods: [ GET ]
+
+auth_login_telegram_callback:
+    path: /auth/login/telegram/callback
+    controller: App\Controller\Auth\TelegramController::login
+    methods: [ GET ]
