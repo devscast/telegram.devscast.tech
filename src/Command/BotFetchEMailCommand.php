@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Event\EMailUpdateEvent;
-use App\Service\EMailService;
+use App\Service\Mailer\EMailService;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Notifier\ChatterInterface;
-use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
-use Symfony\Component\Notifier\Message\ChatMessage;
 
 /**
  * Class BotFetchMailCommand

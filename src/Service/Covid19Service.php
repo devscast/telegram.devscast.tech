@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Service\Formatter\Covid19MessageFormatter;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -21,15 +22,18 @@ class Covid19Service
     public const COUNTRY_ISO = 'COD';
     public const BASE_URL = 'https://covid19.mathdro.id/api/confirmed';
     private HttpClientInterface $client;
+    private Covid19MessageFormatter $formatter;
 
     /**
      * Covid19Service constructor.
      * @param HttpClientInterface $client
+     * @param Covid19MessageFormatter $formatter
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, Covid19MessageFormatter $formatter)
     {
         $this->client = $client;
+        $this->formatter = $formatter;
     }
 
     /**
@@ -50,18 +54,8 @@ class Covid19Service
         });
 
         if ($congo) {
-            $stats = $data[array_key_first($congo)];
-            $date = date('d M Y H:i');
-
-            return <<< MESSAGE
-Salut l'équipe voici les dernières actualités sur le covid en RDC \n
-🤒 Cas Confirmés : **{$stats['confirmed']}**
-✨ Guérisons : **{$stats['recovered']}**
-😓 Morts : **{$stats['deaths']}**
-
-**{$date}**
-🕒 Prochain rappel demain à 10h
-MESSAGE;
+            $date = $data[array_key_first($congo)];
+            return $this->formatter->format($data);
         }
         return null;
     }

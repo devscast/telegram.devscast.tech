@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Service\Github;
 
-use App\Event\Github\GithubIssueUpdateEvent;
 use App\Event\Github\Webhook\IssuesEvent;
 use App\Event\Github\Webhook\PingEvent;
 use App\Event\Github\Webhook\PushEvent;
@@ -35,7 +34,7 @@ class PlayLoadService
      * @param Request $request
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function negociate(Request $request): void
+    public function negotiate(Request $request): void
     {
         $event = $request->headers->get('X-GitHub-Event');
         $guid = $request->headers->get('X-GitHub-Delivery');

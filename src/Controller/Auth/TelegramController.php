@@ -31,7 +31,11 @@ class TelegramController extends AbstractController
      */
     public function login(Request $request): Response
     {
-        dd($request);
-        return new Response(null, Response::HTTP_OK);
+        $chatId = $request->query->getInt('id');
+        $username = $request->query->get('username');
+        $avatar = $request->query->get('photo_url');
+        $hash = $request->query->get('hash');
+
+        return $this->redirectToRoute('auth_login_telegram');
     }
 }

@@ -33,7 +33,7 @@ class GithubWebhookController
      */
     public function index(Request $request, PlayLoadService $service): Response
     {
-        $service->negociate($request);
+        $service->negotiate($request);
         return new Response(null, Response::HTTP_OK);
     }
 }

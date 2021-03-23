@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Service\Formatter\Covid19MessageFormatter;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -11,19 +12,27 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * Class BitcoinService
+ * @package App\Service
+ * @author bernard-ng <ngandubernard@gmail.com>
+ */
 class BitcoinService
 {
     public const BASE_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json';
     private HttpClientInterface $client;
+    private Covid19MessageFormatter $formatter;
 
     /**
      * Covid19Service constructor.
      * @param HttpClientInterface $client
+     * @param Covid19MessageFormatter $formatter
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, Covid19MessageFormatter $formatter)
     {
         $this->client = $client;
+        $this->formatter = $formatter;
     }
 
     /**
@@ -38,15 +47,6 @@ class BitcoinService
     public function getRate(): ?string
     {
         $data = ($this->client->request("GET", self::BASE_URL))->toArray();
-        return <<< MESSAGE
-Salut l'équipe pour le projet coinze.tech 
-voici le cours du Bitcoin maintenant : \n
-💰 1 BTC = **{$data['bpi']['USD']['rate']} USD**
-💰 1 BTC = **{$data['bpi']['EUR']['rate']} EUR**
-💰 1 BTC = **{$data['bpi']['GBP']['rate']} GBP**
-
-**{$data['time']['updated']}**
-🕒 Prochain rappel à 10h, 18h et 22h
-MESSAGE;
+        return $this->formatter->format($data);
     }
 }

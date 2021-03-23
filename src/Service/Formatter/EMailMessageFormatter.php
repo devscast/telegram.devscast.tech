@@ -2,44 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
-
-use Ddeboer\Imap\Search\Flag\Unseen;
-use Ddeboer\Imap\Server;
-use Ddeboer\Imap\ConnectionInterface;
+namespace App\Service\Formatter;
 
 /**
- * Class EMailService
- * @package App\Service
+ * Class EMailMessageFormatter
+ * @package App\Service\Formatter
  * @author bernard-ng <ngandubernard@gmail.com>
  */
-class EMailService
+class EMailMessageFormatter
 {
-    private ConnectionInterface $connection;
-
     /**
-     * MailerService constructor.
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct()
-    {
-        $flags = $_ENV['APP_ENV'] === 'dev' ? '/imap/ssl/novalidate-cert' : '/imap/ssl/validate-cert';
-        $server = new Server($_ENV['IMAP_HOST'], $_ENV['IMAP_PORT'], $flags);
-        $this->connection = $server->authenticate($_ENV['IMAP_USER'], $_ENV['IMAP_PASSWORD']);
-    }
-
-    /**
+     * @param iterable $messages
      * @return array
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function inbox(): array
+    public function format(iterable $messages): array
     {
-        $inbox = $this->connection->getMailbox("INBOX");
-        $messages = $inbox->getMessages(new Unseen(), \SORTDATE, true);
         $data = [];
-
         foreach ($messages as $message) {
-
             $body = $message->getBodyText() ?
                 $message->getBodyText() :
                 ($message->getBodyHtml() ? strip_tags($message->getBodyHtml()) : '⁉️ Message Vide');

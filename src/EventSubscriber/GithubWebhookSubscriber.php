@@ -8,6 +8,7 @@ use App\Event\Github\Webhook\GithubWebhookEventInterface;
 use App\Event\Github\Webhook\IssuesEvent;
 use App\Event\Github\Webhook\PingEvent;
 use App\Event\Github\Webhook\PushEvent;
+use App\Service\Formatter\GithubMessageFormatter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Notifier\ChatterInterface;
@@ -23,17 +24,20 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
 {
     private LoggerInterface $logger;
     private ChatterInterface $notifier;
+    private GithubMessageFormatter $formatter;
 
     /**
      * UpdateSubscriber constructor.
      * @param ChatterInterface $notifier
+     * @param GithubMessageFormatter $formatter
      * @param LoggerInterface $logger
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function __construct(ChatterInterface $notifier, LoggerInterface $logger)
+    public function __construct(ChatterInterface $notifier, GithubMessageFormatter $formatter, LoggerInterface $logger)
     {
         $this->logger = $logger;
         $this->notifier = $notifier;
+        $this->formatter = $formatter;
     }
 
     /**
@@ -55,8 +59,8 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
      */
     public function onPing(GithubWebhookEventInterface $event): void
     {
-        $data = $event->getPlayLoad();
         try {
+            $data = $event->getPlayLoad();
             $this->notifier->send(new ChatMessage("👉🏾 Github ping : {$data['zen']}"));
         } catch (TransportExceptionInterface $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
@@ -69,22 +73,9 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
      */
     public function onPush(GithubWebhookEventInterface $event): void
     {
-        $data = $event->getPlayLoad();
-        $commit = substr(strval($data['after']), 0, 8);
-        $project = $data['repository']['name'];
-        $pusher = $data['pusher']['name'];
-        $message = $data['head_commit']['message'];
-        $date = date('d M Y H:i');
-
-        $message = <<< MESSAGE
-⬆️ Push : {$project}
-🗒 {$commit} : {$message}
-
-👨‍💻 {$pusher}
-🕒 {$date}
-MESSAGE;
-
         try {
+            $data = $event->getPlayLoad();
+            $message = $this->formatter->push($data);
             $this->notifier->send(new ChatMessage($message));
         } catch (TransportExceptionInterface $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
@@ -97,22 +88,11 @@ MESSAGE;
      */
     public function onIssues(GithubWebhookEventInterface $event): void
     {
-        $data = $event->getPlayLoad();
         try {
+            $data = $event->getPlayLoad();
             switch ($data['action']) {
                 case 'assigned':
-                    $title = "#{$data['issue']['number']} {$data['issue']['title']}";
-                    $assignee = $data['assignee']['login'];
-                    $project = $data['repository']['name'];
-                    $date = date('d M Y H:i');
-                    $message = <<< MESSAGE
-👨🏽‍🔧 Assignation de tâche : {$project}
-
-{$title}
-
-👨‍💻 {$assignee}
-🕒 {$date}
-MESSAGE;
+                    $message = $this->formatter->assignedIssue($data);
                     $this->notifier->send(new ChatMessage($message));
                     break;
             }
