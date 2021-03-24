@@ -1,0 +1,25 @@
+///////////////////////////////////////////////////
+///        INCLUDED THIRD-PARTY VENDORS         ///
+///////////////////////////////////////////////////
+
+@import "nioicon/nioicon";
+//@import "prettify";
+@import "select2/core.scss";
+@import "simplebar";
+
+.simplebar-scroll-content {
+  @extend .simplebar-content-wrapper;
+}
+
+//@import "slick/slick";
+//@import "datepicker/bootstrap-datepicker";
+//@import "timepicker/jquery.timepicker";
+//@import "dropzone/dropzone";
+//@import "nouislider/nouislider";
+//@import "toastr/toastr";
+@import "sweetalert2/sweetalert2";
+@import "datatable/datatable";
+//@import "jqvmap";
+//@import "tagify";
+//@import "fullcalendar";
+//@import "jkanban";

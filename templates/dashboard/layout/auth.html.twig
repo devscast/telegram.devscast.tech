@@ -1,0 +1,41 @@
+{% apply spaceless %}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}" class="js">
+<head>
+    <base href="{{ path('app_index') }}">
+    <meta charset="utf-8">
+    <meta name="author" content="devscast">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="./images/favicon.png">
+
+    <title>{% block title %}{% endblock %} | | Devscast Notifier Bot</title>
+    {{ encore_entry_link_tags('app') }}
+</head>
+
+<body class="nk-body bg-white npc-default pg-auth">
+<div class="nk-app-root">
+    <div class="nk-main ">
+        <div class="nk-wrap nk-wrap-nosidebar">
+            <div class="nk-content ">
+                <div class="nk-split nk-split-page nk-split-md">
+                    <div class="nk-split-content nk-block-area nk-block-area-column nk-auth-container bg-white">
+                        <div class="nk-block nk-block-middle nk-auth-body">
+                            <div class="brand-logo pb-5">
+                                <a href="{{ path('app_index') }}" title="{{ 'app.page.home' | trans }}" aria-labelledby="{{ 'app.page.home' |  trans }}" class="logo-link">
+                                    <img class="logo-light logo-img logo-img-lg" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
+                                    <img class="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
+                                </a>
+                            </div>
+                            {% block body %}{% endblock %}
+                        </div>
+                    </div>
+                    <div class="nk-split-content nk-split-stretch bg-abstract" style="background-image: url('https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endapply %}
