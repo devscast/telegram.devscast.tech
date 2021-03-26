@@ -25,5 +25,9 @@ services:
         resource: '../src/Controller/'
         tags: [ 'controller.service_arguments' ]
 
+    TelegramBot\Api\BotApi:
+        arguments:
+            - '%env(resolve:TELEGRAM_BOT_TOKEN))%'
+
     Ddeboer\Imap\ConnectionInterface:
         factory: [ 'App\Service\Mailer\ImapConnectionFactory', createInstance ]
