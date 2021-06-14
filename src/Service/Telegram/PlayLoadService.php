@@ -39,7 +39,7 @@ class PlayLoadService
             if (!empty($message->getEntities())) {
                 foreach ($message->getEntities() as $entity) {
                     if ($entity->getType() === 'bot_command') {
-                        $command = trim(substr($message->getText(), $entity->getOffest(), $entity->getLenght()));
+                        $command = trim(substr($message->getText(), $entity->getOffset(), $entity->getLength()));
                         $argument = trim(str_ireplace($command, "", $message->getText()));
                         $this->dispatcher->dispatch(new CommandFiredEvent($message, $command, $argument));
                     }
