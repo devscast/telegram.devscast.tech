@@ -65,8 +65,7 @@ class BotFetchBitcoinCommand extends Command
             $update = $this->service->getRate();
             $this->dispatcher->dispatch(new Covid19UpdateEvent($update));
             return Command::SUCCESS;
-        } catch (
-        Exception |
+        } catch (Exception |
         ClientExceptionInterface |
         DecodingExceptionInterface |
         RedirectionExceptionInterface |

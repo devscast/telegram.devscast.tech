@@ -27,7 +27,6 @@ class GithubMessageFormatter
      */
     public function closedIssue(array $data): string
     {
-
     }
 
     /**

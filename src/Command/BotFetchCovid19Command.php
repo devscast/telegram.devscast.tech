@@ -65,8 +65,7 @@ class BotFetchCovid19Command extends Command
             $update = $this->service->getConfirmedCase();
             $this->dispatcher->dispatch(new Covid19UpdateEvent($update));
             return Command::SUCCESS;
-        } catch (
-        Exception |
+        } catch (Exception |
         ClientExceptionInterface |
         DecodingExceptionInterface |
         RedirectionExceptionInterface |
