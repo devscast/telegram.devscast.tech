@@ -11,16 +11,8 @@ namespace App\Event;
  */
 class Covid19UpdateEvent implements MessageUpdateEventInterface
 {
-    private string $update;
-
-    /**
-     * Covid19UpdateEvent constructor.
-     * @param string $update
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(string $update)
+    public function __construct(private string $update)
     {
-        $this->update = $update;
     }
 
     /**

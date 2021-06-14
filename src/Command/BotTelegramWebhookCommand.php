@@ -20,16 +20,9 @@ use TelegramBot\Api\Exception;
 class BotTelegramWebhookCommand extends Command
 {
     protected static $defaultName = 'bot:telegram-webhook';
-    private BotApi $api;
 
-    /**
-     * BotSetTelegramWebhookCommand constructor.
-     * @param BotApi $api
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(BotApi $api)
+    public function __construct(private BotApi $api)
     {
-        $this->api = $api;
         parent::__construct('bot:telegram-webhook');
     }
 

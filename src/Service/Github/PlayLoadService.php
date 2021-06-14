@@ -17,16 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PlayLoadService
 {
-    private EventDispatcherInterface $dispatcher;
-
-    /**
-     * PlayLoadService constructor.
-     * @param EventDispatcherInterface $dispatcher
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(EventDispatcherInterface $dispatcher)
+    public function __construct(private EventDispatcherInterface $dispatcher)
     {
-        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -42,13 +34,13 @@ class PlayLoadService
 
         switch ($event) {
             case 'ping':
-                $this->dispatcher->dispatch(new PingEvent("ping", $guid, $data));
+                $this->dispatcher->dispatch(new PingEvent($guid, $data));
                 break;
             case 'issues':
-                $this->dispatcher->dispatch(new IssuesEvent("issues", $guid, $data));
+                $this->dispatcher->dispatch(new IssuesEvent($guid, $data));
                 break;
             case 'push':
-                $this->dispatcher->dispatch(new PushEvent("push", $guid, $data));
+                $this->dispatcher->dispatch(new PushEvent($guid, $data));
         }
     }
 }

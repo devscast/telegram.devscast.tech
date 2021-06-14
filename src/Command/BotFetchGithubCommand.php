@@ -21,22 +21,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class BotFetchGithubCommand extends Command
 {
     protected static $defaultName = 'bot:fetch-github';
-    private GithubService $service;
-    private EventDispatcherInterface $dispatcher;
-    private LoggerInterface $logger;
 
-    /**
-     * BotFetchGithubCommand constructor.
-     * @param GithubService $service
-     * @param EventDispatcherInterface $dispatcher
-     * @param LoggerInterface $logger
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(GithubService $service, EventDispatcherInterface $dispatcher, LoggerInterface $logger)
-    {
-        $this->service = $service;
-        $this->dispatcher = $dispatcher;
-        $this->logger = $logger;
+    public function __construct(
+        private GithubService $service,
+        private EventDispatcherInterface $dispatcher,
+        private LoggerInterface $logger
+    ) {
         parent::__construct('bot:fetch-github');
     }
 

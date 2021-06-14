@@ -13,16 +13,8 @@ use App\Event\MessageUpdateEventInterface;
  */
 class GithubIssueUpdateEvent implements MessageUpdateEventInterface
 {
-    private string $update;
-
-    /**
-     * GithubIssueUpdateEvent constructor.
-     * @param string $update
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(string $update)
+    public function __construct(private string $update)
     {
-        $this->update = $update;
     }
 
     /**

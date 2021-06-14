@@ -22,22 +22,11 @@ use Symfony\Component\Notifier\Message\ChatMessage;
  */
 class GithubWebhookSubscriber implements EventSubscriberInterface
 {
-    private LoggerInterface $logger;
-    private ChatterInterface $notifier;
-    private GithubMessageFormatter $formatter;
-
-    /**
-     * UpdateSubscriber constructor.
-     * @param ChatterInterface $notifier
-     * @param GithubMessageFormatter $formatter
-     * @param LoggerInterface $logger
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(ChatterInterface $notifier, GithubMessageFormatter $formatter, LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-        $this->notifier = $notifier;
-        $this->formatter = $formatter;
+    public function __construct(
+        private ChatterInterface $notifier,
+        private GithubMessageFormatter $formatter,
+        private LoggerInterface $logger
+    ) {
     }
 
     /**

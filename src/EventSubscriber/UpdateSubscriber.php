@@ -22,19 +22,10 @@ use Symfony\Component\Notifier\Message\ChatMessage;
  */
 class UpdateSubscriber implements EventSubscriberInterface
 {
-    private LoggerInterface $logger;
-    private ChatterInterface $notifier;
-
-    /**
-     * UpdateSubscriber constructor.
-     * @param ChatterInterface $notifier
-     * @param LoggerInterface $logger
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(ChatterInterface $notifier, LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-        $this->notifier = $notifier;
+    public function __construct(
+        private ChatterInterface $notifier,
+        private LoggerInterface $logger
+    ) {
     }
 
     /**

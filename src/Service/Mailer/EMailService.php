@@ -15,19 +15,10 @@ use Ddeboer\Imap\ConnectionInterface;
  */
 class EMailService
 {
-    private ConnectionInterface $connection;
-    private EMailMessageFormatter $formatter;
-
-    /**
-     * MailerService constructor.
-     * @param ConnectionInterface $connection
-     * @param EMailMessageFormatter $formatter
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(ConnectionInterface $connection, EMailMessageFormatter $formatter)
-    {
-        $this->connection = $connection;
-        $this->formatter = $formatter;
+    public function __construct(
+        private ConnectionInterface $connection,
+        private EMailMessageFormatter $formatter
+    ) {
     }
 
     /**

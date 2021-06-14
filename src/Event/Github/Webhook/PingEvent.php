@@ -11,22 +11,11 @@ namespace App\Event\Github\Webhook;
  */
 class PingEvent implements GithubWebhookEventInterface
 {
-    private string $name;
-    private string $guid;
-    private array $playLoad;
-
-    /**
-     * IssuesEvent constructor.
-     * @param string $name
-     * @param string $guid
-     * @param array $playLoad
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(string $name, string $guid, array $playLoad)
-    {
-        $this->name = $name;
-        $this->guid = $guid;
-        $this->playLoad = $playLoad;
+    public function __construct(
+        private string $guid,
+        private array $playLoad,
+        private string $name = 'ping'
+    ) {
     }
 
     /**

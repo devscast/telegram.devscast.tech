@@ -6,17 +6,13 @@ namespace App\Command;
 
 use App\Event\Covid19UpdateEvent;
 use App\Service\Covid19Service;
+use App\Service\ServiceUnavailableException;
 use Exception;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * Class BotFetchCovid19Command
@@ -26,22 +22,12 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class BotFetchCovid19Command extends Command
 {
     protected static $defaultName = 'bot:fetch-covid19';
-    private Covid19Service $service;
-    private EventDispatcherInterface $dispatcher;
-    private LoggerInterface $logger;
 
-    /**
-     * BotFetchCovid19Command constructor.
-     * @param Covid19Service $service
-     * @param LoggerInterface $logger
-     * @param EventDispatcherInterface $dispatcher
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(Covid19Service $service, LoggerInterface $logger, EventDispatcherInterface $dispatcher)
-    {
-        $this->service = $service;
-        $this->dispatcher = $dispatcher;
-        $this->logger = $logger;
+    public function __construct(
+        private Covid19Service $service,
+        private LoggerInterface $logger,
+        private EventDispatcherInterface $dispatcher
+    ) {
         parent::__construct('bot:fetch-covid19');
     }
 
@@ -65,13 +51,7 @@ class BotFetchCovid19Command extends Command
             $update = $this->service->getConfirmedCase();
             $this->dispatcher->dispatch(new Covid19UpdateEvent($update));
             return Command::SUCCESS;
-        } catch (Exception |
-        ClientExceptionInterface |
-        DecodingExceptionInterface |
-        RedirectionExceptionInterface |
-        ServerExceptionInterface |
-        TransportExceptionInterface $e
-        ) {
+        } catch (Exception | ServiceUnavailableException $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
             return Command::FAILURE;
         }

@@ -14,19 +14,10 @@ use Github\Client;
  */
 class GithubService
 {
-    private Client $client;
-    private GithubMessageFormatter $formatter;
-
-    /**
-     * GithubService constructor.
-     * @param Client $client
-     * @param GithubMessageFormatter $formatter
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(Client $client, GithubMessageFormatter $formatter)
-    {
-        $this->client = $client;
-        $this->formatter = $formatter;
+    public function __construct(
+        private Client $client,
+        private GithubMessageFormatter $formatter
+    ) {
     }
 
     /**

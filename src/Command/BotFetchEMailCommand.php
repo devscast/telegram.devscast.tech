@@ -19,19 +19,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class BotFetchEMailCommand extends Command
 {
     protected static $defaultName = 'bot:fetch-email';
-    private EMailService $service;
-    private EventDispatcherInterface $dispatcher;
 
-    /**
-     * BotFetchMailCommand constructor.
-     * @param EMailService $service
-     * @param EventDispatcherInterface $dispatcher
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function __construct(EMailService $service, EventDispatcherInterface $dispatcher)
-    {
-        $this->service = $service;
-        $this->dispatcher = $dispatcher;
+    public function __construct(
+        private EMailService $service,
+        private EventDispatcherInterface $dispatcher
+    ) {
         parent::__construct('bot:fetch-email');
     }
 

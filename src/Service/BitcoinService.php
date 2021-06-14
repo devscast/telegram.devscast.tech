@@ -20,8 +20,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class BitcoinService
 {
     public const BASE_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json';
-    private HttpClientInterface $client;
-    private Covid19MessageFormatter $formatter;
 
     /**
      * Covid19Service constructor.
@@ -29,24 +27,29 @@ class BitcoinService
      * @param Covid19MessageFormatter $formatter
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function __construct(HttpClientInterface $client, Covid19MessageFormatter $formatter)
-    {
-        $this->client = $client;
-        $this->formatter = $formatter;
+    public function __construct(
+        private HttpClientInterface $client,
+        private Covid19MessageFormatter $formatter
+    ) {
     }
 
     /**
      * @return ?string
-     * @throws ClientExceptionInterface
-     * @throws DecodingExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface
+     * @throws ServiceUnavailableException
      * @author bernard-ng <ngandubernard@gmail.com>
      */
     public function getRate(): ?string
     {
-        $data = ($this->client->request("GET", self::BASE_URL))->toArray();
-        return $this->formatter->format($data);
+        try {
+            $data = ($this->client->request("GET", self::BASE_URL))->toArray();
+            return $this->formatter->format($data);
+        } catch (ClientExceptionInterface |
+        DecodingExceptionInterface |
+        TransportExceptionInterface |
+        ServerExceptionInterface |
+        RedirectionExceptionInterface $e
+        ) {
+            throw ServiceUnavailableException::fromException($e);
+        }
     }
 }
