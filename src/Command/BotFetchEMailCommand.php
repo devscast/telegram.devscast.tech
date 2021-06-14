@@ -7,11 +7,9 @@ namespace App\Command;
 use App\Event\EMailUpdateEvent;
 use App\Service\Mailer\EMailService;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Notifier\ChatterInterface;
 
 /**
  * Class BotFetchMailCommand
@@ -22,30 +20,19 @@ class BotFetchEMailCommand extends Command
 {
     protected static $defaultName = 'bot:fetch-email';
     private EMailService $service;
-    private ChatterInterface $notifier;
-    private LoggerInterface $logger;
     private EventDispatcherInterface $dispatcher;
 
     /**
      * BotFetchMailCommand constructor.
      * @param EMailService $service
-     * @param ChatterInterface $notifier
-     * @param LoggerInterface $logger
      * @param EventDispatcherInterface $dispatcher
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function __construct(
-        EMailService $service,
-        ChatterInterface $notifier,
-        LoggerInterface $logger,
-        EventDispatcherInterface $dispatcher
-    )
+    public function __construct(EMailService $service, EventDispatcherInterface $dispatcher)
     {
         $this->service = $service;
-        $this->notifier = $notifier;
-        $this->logger = $logger;
-        parent::__construct('bot:fetch-email');
         $this->dispatcher = $dispatcher;
+        parent::__construct('bot:fetch-email');
     }
 
     /**

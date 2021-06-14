@@ -27,7 +27,10 @@ services:
 
     TelegramBot\Api\BotApi:
         arguments:
-            - '%env(resolve:TELEGRAM_BOT_TOKEN))%'
+            - '%env(resolve:TELEGRAM_BOT_TOKEN)%'
+
+    Github\Client:
+        factory: [ 'App\Service\Github\GithubHttpClientFactory', createInstance ]
 
     Ddeboer\Imap\ConnectionInterface:
         factory: [ 'App\Service\Mailer\ImapConnectionFactory', createInstance ]

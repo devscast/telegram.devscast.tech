@@ -5,33 +5,18 @@ declare(strict_types=1);
 namespace App\Controller\Webhook;
 
 use App\Service\Github\PlayLoadService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class GithubWebhookController
  * @package App\Controller\Webhook
  * @author bernard-ng <ngandubernard@gmail.com>
  */
-class GithubWebhookController extends AbstractController
+class GithubWebhookController
 {
-    /**
-     * @param Request $request
-     * @return Response
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
-    public function main(Request $request): Response
-    {
-        return $this->render('@dashboard/module/auth/page/login.html.twig');
-    }
-
-    /**
-     * @param Request $request
-     * @param PlayLoadService $service
-     * @return Response
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
+    #[Route('/webhook/github', name: 'app_webhook_github', methods: ['POST'])]
     public function index(Request $request, PlayLoadService $service): Response
     {
         $service->negotiate($request);

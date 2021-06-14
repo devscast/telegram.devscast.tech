@@ -37,7 +37,6 @@ class EMailMessageFormatter
 
 📬 **{$message->getTo()[0]->getFullAddress()}**
 📪 **{$message->getDate()->format('d M Y H:i')}**
-🕒 Prochain rappel dans 1h
 MESSAGE;
         }
 

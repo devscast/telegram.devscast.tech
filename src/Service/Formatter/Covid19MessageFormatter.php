@@ -26,7 +26,6 @@ Salut l'équipe voici les dernières actualités sur le covid en RDC \n
 😓 Morts : **{$data['deaths']}**
 
 **{$date}**
-🕒 Prochain rappel demain à 10h
 MESSAGE;
     }
 }

@@ -29,8 +29,8 @@ class BotTelegramWebhookCommand extends Command
      */
     public function __construct(BotApi $api)
     {
-        parent::__construct('bot:telegram-webhook');
         $this->api = $api;
+        parent::__construct('bot:telegram-webhook');
     }
 
     /**

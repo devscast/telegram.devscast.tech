@@ -34,10 +34,10 @@ class BotFetchGithubCommand extends Command
      */
     public function __construct(GithubService $service, EventDispatcherInterface $dispatcher, LoggerInterface $logger)
     {
-        parent::__construct('bot:fetch-github');
         $this->service = $service;
         $this->dispatcher = $dispatcher;
         $this->logger = $logger;
+        parent::__construct('bot:fetch-github');
     }
 
     /**

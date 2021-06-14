@@ -79,7 +79,6 @@ fermez l'issue sur github pour signaler que vous avez fini
 
 $message
 
-🕒 Prochain rappel demain à 12h
 MESSAGE;
     }
 
