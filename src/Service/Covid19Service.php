@@ -22,12 +22,6 @@ class Covid19Service
     public const COUNTRY_ISO = 'COD';
     public const BASE_URL = 'https://covid19.mathdro.id/api/confirmed';
 
-    /**
-     * Covid19Service constructor.
-     * @param HttpClientInterface $client
-     * @param Covid19MessageFormatter $formatter
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
     public function __construct(
         private HttpClientInterface $client,
         private Covid19MessageFormatter $formatter
@@ -49,7 +43,7 @@ class Covid19Service
             });
 
             if ($congo) {
-                $date = $data[array_key_first($congo)];
+                $data = $data[array_key_first($congo)];
                 return $this->formatter->format($data);
             }
             return null;

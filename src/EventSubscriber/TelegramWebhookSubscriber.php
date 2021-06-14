@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use App\Event\BitcoinUpdateEvent;
 use App\Event\Covid19UpdateEvent;
 use App\Event\Telegram\CommandFiredEvent;
 use App\Service\BitcoinService;
@@ -57,7 +58,7 @@ class TelegramWebhookSubscriber implements EventSubscriberInterface
                 case '/bitcoin@DevscastNotifierBot':
                 case '/bitcoin':
                     $update = $this->bitcoinService->getRate();
-                    $this->dispatcher->dispatch(new Covid19UpdateEvent($update));
+                    $this->dispatcher->dispatch(new BitcoinUpdateEvent($update));
                     break;
             }
         } catch (ServiceUnavailableException $e) {

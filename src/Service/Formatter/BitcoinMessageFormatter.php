@@ -19,12 +19,12 @@ class BitcoinMessageFormatter
     public function format(array $data): string
     {
         return <<< MESSAGE
-Salut l'équipe pour le projet coinze.tech 
-voici le cours du Bitcoin maintenant : \n
+Voici le cours du Bitcoin maintenant : \n
 💰 1 BTC = **{$data['bpi']['USD']['rate']} USD**
 💰 1 BTC = **{$data['bpi']['EUR']['rate']} EUR**
 💰 1 BTC = **{$data['bpi']['GBP']['rate']} GBP**
 
+https://coinze.tech
 **{$data['time']['updated']}**
 MESSAGE;
     }

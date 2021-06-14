@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Service\Formatter\BitcoinMessageFormatter;
 use App\Service\Formatter\Covid19MessageFormatter;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -21,15 +22,9 @@ class BitcoinService
 {
     public const BASE_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json';
 
-    /**
-     * Covid19Service constructor.
-     * @param HttpClientInterface $client
-     * @param Covid19MessageFormatter $formatter
-     * @author bernard-ng <ngandubernard@gmail.com>
-     */
     public function __construct(
         private HttpClientInterface $client,
-        private Covid19MessageFormatter $formatter
+        private BitcoinMessageFormatter $formatter
     ) {
     }
 
