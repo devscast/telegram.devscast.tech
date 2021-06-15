@@ -20,12 +20,12 @@ class BitcoinMessageFormatter
     {
         return <<< MESSAGE
 Voici le cours du Bitcoin maintenant : \n
-💰 1 BTC : **{$data['bpi']['USD']['rate']} USD**
-💰 1 BTC : **{$data['bpi']['EUR']['rate']} EUR**
-💰 1 BTC : **{$data['bpi']['GBP']['rate']} GBP**
+💰 1 BTC : {$data['bpi']['USD']['rate']} USD
+💰 1 BTC : {$data['bpi']['EUR']['rate']} EUR
+💰 1 BTC : {$data['bpi']['GBP']['rate']} GBP
 
 https://coinze.tech
-**{$data['time']['updated']}**
+{$data['time']['updated']}
 MESSAGE;
     }
 }

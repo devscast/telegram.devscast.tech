@@ -21,11 +21,11 @@ class Covid19MessageFormatter
         $date = date('d M Y H:i');
         return <<< MESSAGE
 Voici les dernières actualités sur le covid19 en RDC \n
-🤒 Cas Confirmés : **{$data['confirmed']}**
-✨ Guérisons : **{$data['recovered']}**
-😓 Morts : **{$data['deaths']}**
+🤒 Cas Confirmés : {$data['confirmed']}
+✨ Guérisons : {$data['recovered']}
+😓 Morts : {$data['deaths']}
 
-**{$date}**
+{$date}
 MESSAGE;
     }
 }

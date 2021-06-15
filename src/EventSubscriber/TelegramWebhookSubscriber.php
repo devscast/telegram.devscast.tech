@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use App\Event\BitcoinUpdateEvent;
-use App\Event\Covid19UpdateEvent;
 use App\Event\Telegram\CommandFiredEvent;
 use App\Service\BitcoinService;
+use App\Service\CommandService;
 use App\Service\Covid19Service;
 use App\Service\ServiceUnavailableException;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use TelegramBot\Api\BotApi;
+use TelegramBot\Api\Exception;
+use TelegramBot\Api\InvalidArgumentException;
 
 /**
  * Class TelegramWebhookSubscriber
@@ -22,9 +23,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class TelegramWebhookSubscriber implements EventSubscriberInterface
 {
     public function __construct(
+        private BotApi $api,
+        private CommandService $commandService,
         private Covid19Service $covid19Service,
         private BitcoinService $bitcoinService,
-        private EventDispatcherInterface $dispatcher,
         private LoggerInterface $logger,
     ) {
     }
@@ -47,21 +49,38 @@ class TelegramWebhookSubscriber implements EventSubscriberInterface
      */
     public function onCommandFired(CommandFiredEvent $event): void
     {
-        try {
-            switch ($event->getCommand()) {
-                case '/covid19@DevscastNotifierBot':
-                case '/covid19':
-                    $update = $this->covid19Service->getConfirmedCase();
-                    $this->dispatcher->dispatch(new Covid19UpdateEvent($update));
-                    break;
+        $messageId = $event->getMessage()->getMessageId();
+        $chatId = $event->getMessage()->getChat()->getId();
 
-                case '/bitcoin@DevscastNotifierBot':
-                case '/bitcoin':
-                    $update = $this->bitcoinService->getRate();
-                    $this->dispatcher->dispatch(new BitcoinUpdateEvent($update));
-                    break;
+        try {
+            try {
+                switch ($event->getCommand()) {
+                    case '/start@DevscastNotifierBot':
+                    case '/start':
+                        $text = $this->commandService->start();
+                        $this->api->sendMessage($chatId, $text, replyToMessageId: $messageId);
+                        break;
+
+                    case '/covid19@DevscastNotifierBot':
+                    case '/covid19':
+                        $text = $this->covid19Service->getConfirmedCase();
+                        $this->api->sendMessage($chatId, $text, replyToMessageId: $messageId);
+                        break;
+
+                    case '/bitcoin@DevscastNotifierBot':
+                    case '/bitcoin':
+                        $text = $this->bitcoinService->getRate();
+                        $this->api->sendMessage($chatId, $text, replyToMessageId: $messageId);
+                        break;
+                }
+            } catch (ServiceUnavailableException) {
+                $this->api->sendMessage(
+                    chatId: $chatId,
+                    text: "Service Indisponible pour l'instant !",
+                    replyToMessageId: $messageId
+                );
             }
-        } catch (ServiceUnavailableException $e) {
+        } catch (InvalidArgumentException | \Exception $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         }
     }
