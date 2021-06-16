@@ -16,8 +16,21 @@ class GithubMessageFormatter
      * @return string
      * @author bernard-ng <ngandubernard@gmail.com>
      */
-    public function createdIssue(array $data): string
+    public function openedIssue(array $data): string
     {
+        $title = "#{$data['issue']['number']} {$data['issue']['title']}";
+        $project = $data['repository']['name'];
+        $sender = $data['sender']['login'];
+        $date = date('d M Y H:i');
+
+        return <<< MESSAGE
+👨🏽‍🔧 Nouvelle Issue : {$project}
+
+{$title}
+
+Créée par {$sender}
+🕒 {$date}
+MESSAGE;
     }
 
     /**

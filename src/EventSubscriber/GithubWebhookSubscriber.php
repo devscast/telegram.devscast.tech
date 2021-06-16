@@ -11,9 +11,7 @@ use App\Event\Github\Webhook\PushEvent;
 use App\Service\Formatter\GithubMessageFormatter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Notifier\ChatterInterface;
-use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
-use Symfony\Component\Notifier\Message\ChatMessage;
+use TelegramBot\Api\BotApi;
 
 /**
  * Class GithubWebhookSubscriber
@@ -23,7 +21,7 @@ use Symfony\Component\Notifier\Message\ChatMessage;
 class GithubWebhookSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private ChatterInterface $notifier,
+        private BotApi $api,
         private GithubMessageFormatter $formatter,
         private LoggerInterface $logger
     ) {
@@ -50,8 +48,8 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
     {
         try {
             $data = $event->getPlayLoad();
-            $this->notifier->send(new ChatMessage("👉🏾 Github ping : {$data['zen']}"));
-        } catch (TransportExceptionInterface $e) {
+            $this->api->sendMessage($_ENV['TELEGRAM_CHAT_ID'], "👉🏾 Github ping : {$data['zen']}");
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         }
     }
@@ -63,10 +61,9 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
     public function onPush(GithubWebhookEventInterface $event): void
     {
         try {
-            $data = $event->getPlayLoad();
-            $message = $this->formatter->push($data);
-            $this->notifier->send(new ChatMessage($message));
-        } catch (TransportExceptionInterface $e) {
+            $text = $this->formatter->push($event->getPlayLoad());
+            $this->api->sendMessage($_ENV['TELEGRAM_CHAT_ID'], $text);
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         }
     }
@@ -81,11 +78,16 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
             $data = $event->getPlayLoad();
             switch ($data['action']) {
                 case 'assigned':
-                    $message = $this->formatter->assignedIssue($data);
-                    $this->notifier->send(new ChatMessage($message));
+                    $text = $this->formatter->assignedIssue($data);
+                    $this->api->sendMessage($_ENV['TELEGRAM_CHAT_ID'], $text);
+                    break;
+
+                case 'opened':
+                    $text = $this->formatter->openedIssue($data);
+                    $this->api->sendMessage($_ENV['TELEGRAM_CHAT_ID'], $text);
                     break;
             }
-        } catch (TransportExceptionInterface $e) {
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         }
     }

@@ -11,9 +11,7 @@ use App\Event\Github\GithubIssueUpdateEvent;
 use App\Event\MessageUpdateEventInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Notifier\ChatterInterface;
-use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
-use Symfony\Component\Notifier\Message\ChatMessage;
+use TelegramBot\Api\BotApi;
 
 /**
  * Class UpdateSubscriber
@@ -23,7 +21,7 @@ use Symfony\Component\Notifier\Message\ChatMessage;
 class UpdateSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private ChatterInterface $notifier,
+        private BotApi $api,
         private LoggerInterface $logger
     ) {
     }
@@ -49,10 +47,9 @@ class UpdateSubscriber implements EventSubscriberInterface
     public function onMessageUpdate(MessageUpdateEventInterface $event): void
     {
         try {
-            $message = new ChatMessage($event->getUpdate());
-            $this->notifier->send($message);
-        } catch (\Exception | TransportExceptionInterface $e) {
-            $this->logger->error($e);
+            $this->api->sendMessage($_ENV['TELEGRAM_CHAT_ID'], $event->getUpdate());
+        } catch (\Exception $e) {
+            $this->logger->error($e, $e->getTrace());
         }
     }
 }
