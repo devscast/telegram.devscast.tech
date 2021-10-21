@@ -16,8 +16,7 @@ class ContactFormSubmittedEvent
         private string $email,
         private string $subject,
         private string $message
-    )
-    {
+    ) {
     }
 
     public function getName(): string
