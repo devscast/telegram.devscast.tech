@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class BotFetchBitcoinCommand
  * @package App\Command
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class BotFetchBitcoinCommand extends Command
 {
@@ -32,7 +32,7 @@ class BotFetchBitcoinCommand extends Command
     }
 
     /**
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     protected function configure()
     {
@@ -43,7 +43,7 @@ class BotFetchBitcoinCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

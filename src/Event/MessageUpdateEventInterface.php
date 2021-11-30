@@ -7,13 +7,13 @@ namespace App\Event;
 /**
  * Interface MessageUpdateEventInterface
  * @package App\Event
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 interface MessageUpdateEventInterface
 {
     /**
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getUpdate(): string;
 }

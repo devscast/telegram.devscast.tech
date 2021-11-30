@@ -11,7 +11,7 @@ use Ddeboer\Imap\ConnectionInterface;
 /**
  * Class EMailService
  * @package App\Service
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class EMailService
 {
@@ -23,7 +23,7 @@ class EMailService
 
     /**
      * @return array
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function inbox(): array
     {

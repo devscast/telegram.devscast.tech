@@ -7,14 +7,14 @@ namespace App\Service\Formatter;
 /**
  * Class GithubMessageFormatter
  * @package App\Service\Formatter
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class GithubMessageFormatter
 {
     /**
      * @param array $data
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function openedIssue(array $data): string
     {
@@ -36,7 +36,7 @@ MESSAGE;
     /**
      * @param array $data
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function closedIssue(array $data): string
     {
@@ -45,7 +45,7 @@ MESSAGE;
     /**
      * @param array $data
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function assignedIssue(array $data): string
     {
@@ -68,7 +68,7 @@ MESSAGE;
      * @param array $issues
      * @param string $project
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function issues(array $issues, string $project): string
     {
@@ -97,7 +97,7 @@ MESSAGE;
     /**
      * @param array $data
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function push(array $data): string
     {

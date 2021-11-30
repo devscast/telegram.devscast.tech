@@ -16,7 +16,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * Class BitcoinService
  * @package App\Service
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class BitcoinService
 {
@@ -31,7 +31,7 @@ class BitcoinService
     /**
      * @return ?string
      * @throws ServiceUnavailableException
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getRate(): ?string
     {

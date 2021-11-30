@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class BotFetchGithubCommand
  * @package App\Command
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class BotFetchGithubCommand extends Command
 {
@@ -31,7 +31,7 @@ class BotFetchGithubCommand extends Command
     }
 
     /**
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     protected function configure()
     {
@@ -42,7 +42,7 @@ class BotFetchGithubCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

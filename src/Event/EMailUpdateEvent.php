@@ -7,7 +7,7 @@ namespace App\Event;
 /**
  * Class EMailUpdateEvent
  * @package App\Event
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class EMailUpdateEvent implements MessageUpdateEventInterface
 {
@@ -17,7 +17,7 @@ class EMailUpdateEvent implements MessageUpdateEventInterface
 
     /**
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getUpdate(): string
     {

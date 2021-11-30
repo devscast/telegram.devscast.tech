@@ -7,14 +7,14 @@ namespace App\Service\Formatter;
 /**
  * Class Covid19MessageFormatter
  * @package App\Service\Formatter
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class Covid19MessageFormatter
 {
     /**
      * @param array $data
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function format(array $data): string
     {

@@ -7,7 +7,7 @@ namespace App\Event\Github\Webhook;
 /**
  * Interface GithubWebhookEventInterface
  * @package App\Event\Github\Webhook
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 interface GithubWebhookEventInterface
 {

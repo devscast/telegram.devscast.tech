@@ -16,7 +16,7 @@ use TelegramBot\Api\BotApi;
 /**
  * Class UpdateSubscriber
  * @package App\EventSubscriber
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class UpdateSubscriber implements EventSubscriberInterface
 {
@@ -28,7 +28,7 @@ class UpdateSubscriber implements EventSubscriberInterface
 
     /**
      * @return string[]
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public static function getSubscribedEvents(): array
     {
@@ -42,7 +42,7 @@ class UpdateSubscriber implements EventSubscriberInterface
 
     /**
      * @param MessageUpdateEventInterface $event
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function onMessageUpdate(MessageUpdateEventInterface $event): void
     {

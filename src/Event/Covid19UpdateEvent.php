@@ -7,7 +7,7 @@ namespace App\Event;
 /**
  * Class Covid19UpdateEvent
  * @package App\Event
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class Covid19UpdateEvent implements MessageUpdateEventInterface
 {
@@ -17,7 +17,7 @@ class Covid19UpdateEvent implements MessageUpdateEventInterface
 
     /**
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getUpdate(): string
     {

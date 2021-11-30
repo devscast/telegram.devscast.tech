@@ -7,7 +7,7 @@ namespace App\Event\Github\Webhook;
 /**
  * Class IssuesEvent
  * @package App\Event\Github\Webhook
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class IssuesEvent implements GithubWebhookEventInterface
 {
@@ -20,7 +20,7 @@ class IssuesEvent implements GithubWebhookEventInterface
 
     /**
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getGuid(): string
     {
@@ -29,7 +29,7 @@ class IssuesEvent implements GithubWebhookEventInterface
 
     /**
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getName(): string
     {
@@ -38,7 +38,7 @@ class IssuesEvent implements GithubWebhookEventInterface
 
     /**
      * @return array
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getPlayLoad(): array
     {

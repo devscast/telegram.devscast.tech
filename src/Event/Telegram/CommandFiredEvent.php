@@ -17,7 +17,7 @@ class CommandFiredEvent
 
     /**
      * @return Message
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getMessage(): Message
     {
@@ -26,7 +26,7 @@ class CommandFiredEvent
 
     /**
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getCommand(): string
     {
@@ -35,7 +35,7 @@ class CommandFiredEvent
 
     /**
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getArgument(): string
     {

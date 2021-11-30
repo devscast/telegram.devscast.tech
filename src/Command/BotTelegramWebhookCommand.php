@@ -15,7 +15,7 @@ use TelegramBot\Api\Exception;
 /**
  * Class BotSetTelegramWebhookCommand
  * @package App\Command
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class BotTelegramWebhookCommand extends Command
 {
@@ -27,7 +27,7 @@ class BotTelegramWebhookCommand extends Command
     }
 
     /**
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     protected function configure()
     {
@@ -40,7 +40,7 @@ class BotTelegramWebhookCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

@@ -18,7 +18,7 @@ use TelegramBot\Api\InvalidArgumentException;
 /**
  * Class TelegramWebhookSubscriber
  * @package App\EventSubscriber
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class TelegramWebhookSubscriber implements EventSubscriberInterface
 {
@@ -34,7 +34,7 @@ class TelegramWebhookSubscriber implements EventSubscriberInterface
 
     /**
      * @return string[]
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public static function getSubscribedEvents()
     {
@@ -45,7 +45,7 @@ class TelegramWebhookSubscriber implements EventSubscriberInterface
 
     /**
      * @param CommandFiredEvent $event
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function onCommandFired(CommandFiredEvent $event): void
     {

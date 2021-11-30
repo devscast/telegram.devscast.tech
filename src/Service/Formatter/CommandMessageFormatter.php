@@ -7,7 +7,7 @@ namespace App\Service\Formatter;
 /**
  * Class CommandMessageFormatter
  * @package App\Service\Formatter
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class CommandMessageFormatter
 {

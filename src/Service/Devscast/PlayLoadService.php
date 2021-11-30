@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class PlayLoadService
  * @package App\Service\Github
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class PlayLoadService
 {
@@ -22,7 +22,7 @@ class PlayLoadService
     /**
      * Trigger the right event with the right data
      * @param Request $request
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function negotiate(Request $request): void
     {

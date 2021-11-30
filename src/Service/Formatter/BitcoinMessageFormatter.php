@@ -7,14 +7,14 @@ namespace App\Service\Formatter;
 /**
  * Class BitcoinMessageFormatter
  * @package App\Service\Formatter
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class BitcoinMessageFormatter
 {
     /**
      * @param array $data
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function format(array $data): string
     {

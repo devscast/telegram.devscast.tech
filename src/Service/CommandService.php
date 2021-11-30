@@ -9,7 +9,7 @@ use App\Service\Formatter\CommandMessageFormatter;
 /**
  * Class CommandService
  * @package App\Service
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class CommandService
 {

@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class BotFetchMailCommand
  * @package App\Command
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class BotFetchEMailCommand extends Command
 {
@@ -28,7 +28,7 @@ class BotFetchEMailCommand extends Command
     }
 
     /**
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     protected function configure()
     {
@@ -39,7 +39,7 @@ class BotFetchEMailCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

@@ -16,7 +16,7 @@ use TelegramBot\Api\BotApi;
 /**
  * Class GithubWebhookSubscriber
  * @package App\EventSubscriber
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class GithubWebhookSubscriber implements EventSubscriberInterface
 {
@@ -29,7 +29,7 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
 
     /**
      * @return string[]
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public static function getSubscribedEvents(): array
     {
@@ -42,7 +42,7 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
 
     /**
      * @param GithubWebhookEventInterface $event
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function onPing(GithubWebhookEventInterface $event): void
     {
@@ -56,7 +56,7 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
 
     /**
      * @param GithubWebhookEventInterface $event
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function onPush(GithubWebhookEventInterface $event): void
     {
@@ -70,7 +70,7 @@ class GithubWebhookSubscriber implements EventSubscriberInterface
 
     /**
      * @param GithubWebhookEventInterface $event
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function onIssues(GithubWebhookEventInterface $event): void
     {

@@ -14,7 +14,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Class CovidApiService
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class Covid19Service
 {
@@ -31,7 +31,7 @@ class Covid19Service
     /**
      * @return ?string
      * @throws ServiceUnavailableException
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getConfirmedCase(): ?string
     {

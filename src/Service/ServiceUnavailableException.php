@@ -9,7 +9,7 @@ use Throwable;
 /**
  * Class ServiceUnavailableException
  * @package App\Service
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class ServiceUnavailableException extends \Exception
 {

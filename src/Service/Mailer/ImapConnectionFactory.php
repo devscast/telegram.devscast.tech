@@ -10,13 +10,13 @@ use Ddeboer\Imap\Server;
 /**
  * Class ImapConnexionFactory
  * @package App\Service\Mailer
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class ImapConnectionFactory
 {
     /**
      * @return ConnectionInterface
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public static function createInstance(): ConnectionInterface
     {

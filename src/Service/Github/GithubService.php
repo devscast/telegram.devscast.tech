@@ -10,7 +10,7 @@ use Github\Client;
 /**
  * Class GithubService
  * @package App\Service
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class GithubService
 {
@@ -22,7 +22,7 @@ class GithubService
 
     /**
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getIssues(): string
     {

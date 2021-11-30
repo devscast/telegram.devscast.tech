@@ -13,7 +13,7 @@ use TelegramBot\Api\BotApi;
 /**
  * Class GithubWebhookSubscriber
  * @package App\EventSubscriber
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class DevscastWebhookSubscriber implements EventSubscriberInterface
 {

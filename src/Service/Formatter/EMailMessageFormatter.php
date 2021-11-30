@@ -7,14 +7,14 @@ namespace App\Service\Formatter;
 /**
  * Class EMailMessageFormatter
  * @package App\Service\Formatter
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class EMailMessageFormatter
 {
     /**
      * @param iterable $messages
      * @return array
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function format(iterable $messages): array
     {

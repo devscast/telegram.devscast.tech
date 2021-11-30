@@ -9,7 +9,7 @@ use App\Event\MessageUpdateEventInterface;
 /**
  * Class GithubIssueUpdateEvent
  * @package App\Event\Github
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class GithubIssueUpdateEvent implements MessageUpdateEventInterface
 {
@@ -19,7 +19,7 @@ class GithubIssueUpdateEvent implements MessageUpdateEventInterface
 
     /**
      * @return string
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function getUpdate(): string
     {

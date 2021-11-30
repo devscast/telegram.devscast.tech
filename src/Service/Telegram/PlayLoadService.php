@@ -12,14 +12,14 @@ use TelegramBot\Api\Types\Update;
 /**
  * Class PlayLoadService
  * @package App\Service\Telegram
- * @author bernard-ng <ngandubernard@gmail.com>
+ * @author bernard-ng <bernard@devscast.tech>
  */
 class PlayLoadService
 {
     /**
      * PlayLoadService constructor.
      * @param EventDispatcherInterface $dispatcher
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function __construct(private EventDispatcherInterface $dispatcher)
     {
@@ -27,7 +27,7 @@ class PlayLoadService
 
     /**
      * @param Request $request
-     * @author bernard-ng <ngandubernard@gmail.com>
+     * @author bernard-ng <bernard@devscast.tech>
      */
     public function negotiate(Request $request): void
     {
