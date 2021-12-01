@@ -33,4 +33,4 @@ services:
         factory: [ 'App\Service\Github\GithubHttpClientFactory', createInstance ]
 
     Ddeboer\Imap\ConnectionInterface:
-        factory: [ 'App\Service\Mailer\ImapConnectionFactory', createInstance ]
+        factory: [ 'App\Service\Imap\ImapConnectionFactory', createInstance ]
