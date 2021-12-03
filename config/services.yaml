@@ -29,8 +29,5 @@ services:
         arguments:
             - '%env(resolve:TELEGRAM_BOT_TOKEN)%'
 
-    Github\Client:
-        factory: [ 'App\Service\Github\GithubHttpClientFactory', createInstance ]
-
     Ddeboer\Imap\ConnectionInterface:
-        factory: [ 'App\Service\Mailer\ImapConnectionFactory', createInstance ]
+        factory: [ 'App\Service\Imap\ImapConnectionFactory', createInstance ]
