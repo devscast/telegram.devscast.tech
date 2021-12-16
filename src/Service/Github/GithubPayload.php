@@ -20,7 +20,7 @@ final class GithubPayload implements PayloadInterface
     public function process(Request $request): void
     {
         /** @var array $data */
-        $data = json_decode(json: (string)$request->getContent(), associative: true);
+        $data = json_decode(json: (string)$request->getContent(), associative: true) ?: [];
         $event = (string) $request->headers->get('X-GitHub-Event', '');
         $guid = (string) $request->headers->get('X-GitHub-Delivery', '');
 
