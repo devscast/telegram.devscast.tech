@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Bitcoin\Command;
 
 use App\Service\Bitcoin\BitcoinService;
-use App\Service\Bitcoin\Event\BitcoinUpdateEvent;
+use App\Service\Bitcoin\Event\Input\BitcoinEvent;
 use App\Service\ServiceUnavailableException;
 use Exception;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -30,7 +30,7 @@ final class BitcoinFetchCommand extends Command
     {
         try {
             $update = $this->service->getRate();
-            $this->dispatcher->dispatch(new BitcoinUpdateEvent($update));
+            $this->dispatcher->dispatch(new BitcoinEvent($update));
             return Command::SUCCESS;
         } catch (Exception | ServiceUnavailableException $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());

@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Devscast\Event;
+namespace App\Service\Devscast\Event\Output;
 
-final class DevscastContentCreatedEvent implements DevscastWebhookEvent
+use App\Service\OutputEventInterface;
+
+final class ContentCreatedEvent implements OutputEventInterface
 {
     private function __construct(
         public string $name,

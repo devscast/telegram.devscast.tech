@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Covid19\Command;
 
 use App\Service\Covid19\Covid19Service;
-use App\Service\Covid19\Event\Covid19UpdateEvent;
+use App\Service\Covid19\Event\Input\Covid19Event;
 use App\Service\ServiceUnavailableException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
@@ -29,7 +29,7 @@ final class Covid19FetchCommand extends Command
     {
         try {
             $update = $this->service->getConfirmedCase();
-            $this->dispatcher->dispatch(new Covid19UpdateEvent($update));
+            $this->dispatcher->dispatch(new Covid19Event($update));
             return Command::SUCCESS;
         } catch (ServiceUnavailableException $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());

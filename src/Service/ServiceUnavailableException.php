@@ -12,7 +12,7 @@ final class ServiceUnavailableException extends \Exception
         parent::__construct($message, $code, $previous);
     }
 
-    public static function fromException(\Exception|\Throwable $e): self
+    public static function fromException(\Throwable $e): self
     {
         /** @var int $code */
         $code = $e->getCode();

@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace App\Service\Telegram\Subscriber;
 
 use App\Service\Bitcoin\BitcoinService;
+use App\Service\Bitcoin\Event\Input\BitcoinEvent;
 use App\Service\Covid19\Covid19Service;
-use App\Service\Telegram\Event\TelegramCommandFiredEvent;
+use App\Service\Covid19\Event\Input\Covid19Event;
 use App\Service\ServiceUnavailableException;
+use App\Service\Telegram\Event\CommandEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use TelegramBot\Api\BotApi;
-use TelegramBot\Api\InvalidArgumentException;
 
-final class TelegramCommandSubscriber implements EventSubscriberInterface
+final class CommandSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private BotApi                 $api,
@@ -26,15 +27,16 @@ final class TelegramCommandSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            TelegramCommandFiredEvent::class => 'onCommandFired'
+            CommandEvent::class => 'onCommand'
         ];
     }
 
-    public function onCommandFired(TelegramCommandFiredEvent $event): void
+    public function onCommand(CommandEvent $event): void
     {
         $messageId = $event->getMessage()->getMessageId();
         $chatId = $event->getMessage()->getChat()->getId();
 
+        // TODO: route command
         try {
             try {
                 switch ($event->getCommand()) {
@@ -45,14 +47,14 @@ final class TelegramCommandSubscriber implements EventSubscriberInterface
 
                     case '/covid19@DevscastNotifierBot':
                     case '/covid19':
-                        $text = $this->covid19Service->getConfirmedCase();
-                        $this->api->sendMessage($chatId, $text, replyToMessageId: $messageId);
+                        $event = new Covid19Event($this->covid19Service->getConfirmedCase());
+                        $this->api->sendMessage($chatId, (string) $event, replyToMessageId: $messageId);
                         break;
 
                     case '/bitcoin@DevscastNotifierBot':
                     case '/bitcoin':
-                        $text = $this->bitcoinService->getRate();
-                        $this->api->sendMessage($chatId, $text, replyToMessageId: $messageId);
+                        $event = new BitcoinEvent($this->bitcoinService->getRate());
+                        $this->api->sendMessage($chatId, (string) $event, replyToMessageId: $messageId);
                         break;
                 }
             } catch (ServiceUnavailableException) {
@@ -62,7 +64,7 @@ final class TelegramCommandSubscriber implements EventSubscriberInterface
                     replyToMessageId: $messageId
                 );
             }
-        } catch (InvalidArgumentException | \Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         }
     }

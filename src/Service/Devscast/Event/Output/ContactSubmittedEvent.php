@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Devscast\Event;
+namespace App\Service\Devscast\Event\Output;
 
-final class DevscastContactFormSubmittedEvent implements DevscastWebhookEvent
+use App\Service\OutputEventInterface;
+
+final class ContactSubmittedEvent implements OutputEventInterface
 {
     private function __construct(
         public string $name,

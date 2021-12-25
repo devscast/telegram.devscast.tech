@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Service\Telegram\CommandHandlerInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
@@ -10,6 +12,14 @@ use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
+
+    protected function build(ContainerBuilder $container): void
+    {
+        $container
+            ->registerForAutoconfiguration(CommandHandlerInterface::class)
+            ->addTag('telegram.command_handler');
+        parent::build($container);
+    }
 
     protected function configureContainer(ContainerConfigurator $container): void
     {

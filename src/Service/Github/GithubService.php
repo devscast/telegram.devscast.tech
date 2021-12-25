@@ -10,16 +10,15 @@ use Github\Client;
 final class GithubService
 {
     public function __construct(
-        private Client                 $client,
-        private GithubMessageFormatter $formatter
-    ) {
+        private Client $client,
+    )
+    {
     }
 
-    public function getIssues(string $username = 'devscast', string $repository = 'devscast.tech'): string
+    public function getIssues(string $username = 'devscast', string $repository = 'devscast.tech'): array
     {
         /** @var Issue $api */
         $api = $this->client->api('issue');
-        $issues = $api->all($username, $repository, ['state' => 'open']);
-        return $this->formatter->issues($issues, $repository);
+        return $api->all($username, $repository, params: ['state' => 'open']);
     }
 }

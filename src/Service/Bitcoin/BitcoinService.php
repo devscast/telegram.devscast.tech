@@ -16,18 +16,16 @@ final class BitcoinService
 
     public function __construct(
         private HttpClientInterface $client,
-        private BitcoinMessageFormatter $formatter
     ) {
     }
 
     /**
      * @throws ServiceUnavailableException
      */
-    public function getRate(): string
+    public function getRate(): array
     {
         try {
-            $data = ($this->client->request("GET", self::BASE_URL))->toArray();
-            return $this->formatter->format($data);
+            return ($this->client->request("GET", self::BASE_URL))->toArray();
         } catch (\Throwable $e) {
             throw ServiceUnavailableException::fromException($e);
         }

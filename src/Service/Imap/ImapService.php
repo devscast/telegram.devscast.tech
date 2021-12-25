@@ -11,14 +11,16 @@ final class ImapService
 {
     public function __construct(
         private ConnectionInterface  $connection,
-        private ImapMessageFormatter $formatter
     ) {
     }
 
-    public function inbox(): array
+    public function inbox(): iterable
     {
         $inbox = $this->connection->getMailbox("INBOX");
-        $messages = $inbox->getMessages(new Unseen(), \SORTDATE, true);
-        return $this->formatter->format($messages);
+        return $inbox->getMessages(
+            search: new Unseen(),
+            sortCriteria: \SORTDATE, // https://php.net/manual/en/imap.constants.php
+            descending: true
+        );
     }
 }

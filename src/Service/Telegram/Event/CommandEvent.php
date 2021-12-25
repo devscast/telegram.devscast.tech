@@ -6,7 +6,7 @@ namespace App\Service\Telegram\Event;
 
 use TelegramBot\Api\Types\Message;
 
-final class TelegramCommandFiredEvent
+final class CommandEvent
 {
     public function __construct(
         private Message $message,

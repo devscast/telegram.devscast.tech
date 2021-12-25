@@ -2,14 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Imap;
+namespace App\Service\Imap\Event\Input;
 
-final class ImapMessageFormatter
+use App\Service\InputEventInterface;
+
+final class ImapEvent implements InputEventInterface
 {
-    public function format(iterable $messages): array
+    public function __construct(private array $update)
     {
-        $data = [];
-        foreach ($messages as $message) {
+    }
+
+    public function getUpdate(): array
+    {
+        return $this->update;
+    }
+
+    public function __toString(): string
+    {
+        $data = '';
+        foreach ($this->update as $message) {
             $body = $message->getBodyText() ?
                 $message->getBodyText() :
                 ($message->getBodyHtml() ? strip_tags($message->getBodyHtml()) : '⁉️ Message Vide');
@@ -19,7 +30,9 @@ final class ImapMessageFormatter
                 $body = substr($body, 0, $space ? $space : 200) . '...';
             }
 
-            $data[] = <<< MESSAGE
+            $data .= <<< MESSAGE
+
+======
 📩 **{$message->getFrom()->getFullAddress()}**
 **{$message->getSubject()}**
 
@@ -27,6 +40,8 @@ final class ImapMessageFormatter
 
 📬 **{$message->getTo()[0]->getFullAddress()}**
 📪 **{$message->getDate()->format('d M Y H:i')}**
+====== 
+
 MESSAGE;
         }
 

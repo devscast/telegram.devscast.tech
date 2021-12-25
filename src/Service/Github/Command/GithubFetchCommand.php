@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Github\Command;
 
-use App\Service\Github\Event\GithubIssueUpdateEvent;
+use App\Service\Github\Event\Input\IssueEvent;
 use App\Service\Github\GithubService;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
@@ -20,7 +20,8 @@ final class GithubFetchCommand extends Command
         private GithubService            $service,
         private EventDispatcherInterface $dispatcher,
         private LoggerInterface          $logger
-    ) {
+    )
+    {
         parent::__construct('bot:fetch-github');
     }
 
@@ -28,7 +29,7 @@ final class GithubFetchCommand extends Command
     {
         try {
             $update = $this->service->getIssues();
-            $this->dispatcher->dispatch(new GithubIssueUpdateEvent($update));
+            $this->dispatcher->dispatch(new IssueEvent($update));
             return Command::SUCCESS;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());

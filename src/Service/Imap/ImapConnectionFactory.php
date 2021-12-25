@@ -7,12 +7,19 @@ namespace App\Service\Imap;
 use Ddeboer\Imap\ConnectionInterface;
 use Ddeboer\Imap\Server;
 
-class ImapConnectionFactory
+final class ImapConnectionFactory
 {
     public static function createInstance(): ConnectionInterface
     {
-        $flags = $_ENV['APP_ENV'] === 'dev' ? '/imap/ssl/novalidate-cert' : '/imap/ssl/validate-cert';
-        $server = new Server($_ENV['IMAP_HOST'], $_ENV['IMAP_PORT'], $flags);
-        return $server->authenticate($_ENV['IMAP_USER'], $_ENV['IMAP_PASSWORD']);
+        $server = new Server(
+            hostname: $_ENV['IMAP_HOST'],
+            port: $_ENV['IMAP_PORT'],
+            flags: $_ENV['APP_ENV'] === 'dev' ? '/imap/ssl/novalidate-cert' : '/imap/ssl/validate-cert'
+        );
+
+        return $server->authenticate(
+            username: $_ENV['IMAP_USER'],
+            password: $_ENV['IMAP_PASSWORD']
+        );
     }
 }
