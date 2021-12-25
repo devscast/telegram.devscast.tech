@@ -4,33 +4,39 @@ declare(strict_types=1);
 
 namespace App\Service\Devscast\Event;
 
-final class DevscastContactFormSubmittedEvent
+final class DevscastContactFormSubmittedEvent implements DevscastWebhookEvent
 {
-    public function __construct(
-        private string $name,
-        private string $email,
-        private string $subject,
-        private string $message
+    private function __construct(
+        public string $name,
+        public string $email,
+        public string $subject,
+        public string $message
     ) {
     }
 
-    public function getName(): string
+    public static function fromArray(array $data): self
     {
-        return $this->name;
+        return new self(
+            name: $data['name'],
+            email: $data['email'],
+            subject: $data['subject'],
+            message: $data['message']
+        );
     }
 
-    public function getEmail(): string
+    public function __toString(): string
     {
-        return $this->email;
-    }
+        $date = date('d M Y H:i');
 
-    public function getSubject(): string
-    {
-        return $this->subject;
-    }
+        return <<< MESSAGE
+📨 Contact - Devscast.tech
+From : {$this->name} <{$this->email}>
+To : Devscast <contact@devscast.tech>
+Subject : {$this->subject}
 
-    public function getMessage(): string
-    {
-        return $this->message;
+{$this->message}
+
+🕒 {$date}
+MESSAGE;
     }
 }
