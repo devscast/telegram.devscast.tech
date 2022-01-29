@@ -9,7 +9,7 @@ serve: vendor/autoload.php ## lance le projet en local
 .PHONY: lint
 lint: vendor/autoload.php ## affiche les erreurs de formatage/style de code
 	php vendor/bin/phpcs -s
-	php bin/console lint:yaml config
+	php bin/console lint:yaml config --parse-tags
 	php vendor/bin/phpstan
 
 .PHONY: refactoring
