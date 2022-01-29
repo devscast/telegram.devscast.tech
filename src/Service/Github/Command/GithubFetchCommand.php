@@ -20,8 +20,7 @@ final class GithubFetchCommand extends Command
         private GithubService            $service,
         private EventDispatcherInterface $dispatcher,
         private LoggerInterface          $logger
-    )
-    {
+    ) {
         parent::__construct('bot:fetch-github');
     }
 

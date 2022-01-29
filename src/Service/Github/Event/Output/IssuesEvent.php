@@ -15,7 +15,7 @@ final class IssuesEvent implements OutputEventInterface
 
     public function __toString(): string
     {
-        return match($this->data['action']) {
+        return match ($this->data['action']) {
             'assigned' => $this->assignedIssue($this->data),
             'opened' => $this->openedIssue($this->data),
             'closed' => $this->closedIssue($this->data),

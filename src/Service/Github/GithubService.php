@@ -11,8 +11,7 @@ final class GithubService
 {
     public function __construct(
         private Client $client,
-    )
-    {
+    ) {
     }
 
     public function getIssues(string $username = 'devscast', string $repository = 'devscast.tech'): array

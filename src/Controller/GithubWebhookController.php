@@ -24,7 +24,7 @@ final class GithubWebhookController
         $event = (string) $request->headers->get('X-GitHub-Event', '');
 
         $event = match ($event) {
-            'ping' => new PingEvent( $data),
+            'ping' => new PingEvent($data),
             'issues' => new IssuesEvent($data),
             'push' => new PushEvent($data),
             default => null
