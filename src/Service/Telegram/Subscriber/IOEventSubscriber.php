@@ -14,6 +14,7 @@ use App\Service\Github\Event\Output\PingEvent;
 use App\Service\Github\Event\Output\PushEvent;
 use App\Service\Imap\Event\Input\ImapEvent;
 use App\Service\InputEventInterface;
+use App\Service\OutputEventInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use TelegramBot\Api\BotApi;
@@ -45,7 +46,7 @@ final class IOEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onEvent(InputEventInterface $event): void
+    public function onEvent(InputEventInterface|OutputEventInterface $event): void
     {
         try {
             $this->api->sendMessage(
