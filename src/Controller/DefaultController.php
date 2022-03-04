@@ -16,6 +16,6 @@ final class DefaultController extends AbstractController
     #[Route('/', name: 'app_index', methods: ['GET'])]
     public function index(): Response
     {
-        return new RedirectResponse('https:/t.me/devscast');
+        return new RedirectResponse('https://t.me/devscast');
     }
 }
