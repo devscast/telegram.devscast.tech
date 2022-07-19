@@ -10,7 +10,7 @@ use Github\Client;
 final class GithubService
 {
     public function __construct(
-        private Client $client,
+        private readonly Client $client,
     ) {
     }
 
@@ -18,6 +18,8 @@ final class GithubService
     {
         /** @var Issue $api */
         $api = $this->client->api('issue');
-        return $api->all($username, $repository, params: ['state' => 'open']);
+        return $api->all($username, $repository, params: [
+            'state' => 'open',
+        ]);
     }
 }

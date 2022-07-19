@@ -8,13 +8,8 @@ use App\Service\InputEventInterface;
 
 final class ImapEvent implements InputEventInterface
 {
-    public function __construct(private array $update)
+    public function __construct(private readonly array $update)
     {
-    }
-
-    public function getUpdate(): array
-    {
-        return $this->update;
     }
 
     public function __toString(): string
@@ -26,7 +21,7 @@ final class ImapEvent implements InputEventInterface
                 ($message->getBodyHtml() ? strip_tags($message->getBodyHtml()) : '⁉️ Message Vide');
 
             if (mb_strlen($body) > 200) {
-                $space = strripos($body, " ", 0);
+                $space = strripos($body, ' ', 0);
                 $body = substr($body, 0, $space ? $space : 200) . '...';
             }
 
@@ -46,5 +41,10 @@ MESSAGE;
         }
 
         return $data;
+    }
+
+    public function getUpdate(): array
+    {
+        return $this->update;
     }
 }

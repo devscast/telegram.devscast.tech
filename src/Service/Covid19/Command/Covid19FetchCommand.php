@@ -18,9 +18,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class Covid19FetchCommand extends Command
 {
     public function __construct(
-        private Covid19Service $service,
-        private LoggerInterface $logger,
-        private EventDispatcherInterface $dispatcher
+        private readonly Covid19Service $service,
+        private readonly LoggerInterface $logger,
+        private readonly EventDispatcherInterface $dispatcher
     ) {
         parent::__construct();
     }

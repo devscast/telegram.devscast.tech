@@ -16,16 +16,6 @@ final class ContactSubmittedEvent implements OutputEventInterface
     ) {
     }
 
-    public static function fromArray(array $data): self
-    {
-        return new self(
-            name: $data['name'],
-            email: $data['email'],
-            subject: $data['subject'],
-            message: $data['message']
-        );
-    }
-
     public function __toString(): string
     {
         $date = date('d M Y H:i');
@@ -40,5 +30,15 @@ Subject : {$this->subject}
 
 🕒 {$date}
 MESSAGE;
+    }
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            name: $data['name'],
+            email: $data['email'],
+            subject: $data['subject'],
+            message: $data['message']
+        );
     }
 }

@@ -19,9 +19,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class BitcoinFetchCommand extends Command
 {
     public function __construct(
-        private BitcoinService $service,
-        private LoggerInterface $logger,
-        private EventDispatcherInterface $dispatcher
+        private readonly BitcoinService $service,
+        private readonly LoggerInterface $logger,
+        private readonly EventDispatcherInterface $dispatcher
     ) {
         parent::__construct();
     }

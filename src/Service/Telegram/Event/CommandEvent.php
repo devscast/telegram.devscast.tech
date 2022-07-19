@@ -9,9 +9,9 @@ use TelegramBot\Api\Types\Message;
 final class CommandEvent
 {
     public function __construct(
-        private Message $message,
-        private string $command,
-        private string $argument
+        private readonly Message $message,
+        private readonly string $command,
+        private readonly string $argument
     ) {
     }
 

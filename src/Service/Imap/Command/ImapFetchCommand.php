@@ -19,8 +19,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class ImapFetchCommand extends Command
 {
     public function __construct(
-        private ImapService $service,
-        private EventDispatcherInterface $dispatcher
+        private readonly ImapService $service,
+        private readonly EventDispatcherInterface $dispatcher
     ) {
         parent::__construct();
     }

@@ -25,7 +25,7 @@ final class Covid19Service
     public const BASE_URL = 'https://covid19.mathdro.id/api/confirmed';
 
     public function __construct(
-        private HttpClientInterface $client,
+        private readonly HttpClientInterface $client,
     ) {
     }
 
@@ -35,13 +35,13 @@ final class Covid19Service
     public function getConfirmedCase(): array
     {
         try {
-            $data = ($this->client->request("GET", self::BASE_URL))->toArray();
+            $data = ($this->client->request('GET', self::BASE_URL))->toArray();
             $congo = array_filter($data, function ($d) {
                 $key = strtolower(sprintf('%s--%s--%s', $d['countryRegion'], $d['long'], $d['lat']));
-                return self::COUNTRY_ISO === $d['iso3'] || self::COUNTRY_PATH === $key;
+                return $d['iso3'] === self::COUNTRY_ISO || $key === self::COUNTRY_PATH;
             });
 
-            if ([] !== $congo) {
+            if ($congo !== []) {
                 return $data[array_key_first($congo)];
             }
 

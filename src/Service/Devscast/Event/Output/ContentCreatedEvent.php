@@ -19,6 +19,26 @@ final class ContentCreatedEvent implements OutputEventInterface
     ) {
     }
 
+    public function __toString(): string
+    {
+        return <<< MESSAGE
+Nouveau Contenu<{$this->type}> -> Devscast.tech
+
+{$this->name}
+======
+
+{$this->short_description}
+
+status : {$this->status}
+visibility : {$this->visibility}
+auteur : {$this->author}
+
+======
+
+{$this->link}
+MESSAGE;
+    }
+
     public static function fromArray(array $data): self
     {
         return new self(
@@ -30,25 +50,5 @@ final class ContentCreatedEvent implements OutputEventInterface
             link: $data['link'],
             type: $data['type']
         );
-    }
-
-    public function __toString(): string
-    {
-        return <<< MESSAGE
-Nouveau Contenu<$this->type> -> Devscast.tech
-
-$this->name
-======
-
-$this->short_description
-
-status : $this->status
-visibility : $this->visibility
-auteur : $this->author
-
-======
-
-$this->link
-MESSAGE;
     }
 }

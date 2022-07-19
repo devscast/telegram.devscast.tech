@@ -8,13 +8,8 @@ use App\Service\InputEventInterface;
 
 final class BitcoinEvent implements InputEventInterface
 {
-    public function __construct(private array $update)
+    public function __construct(private readonly array $update)
     {
-    }
-
-    public function getUpdate(): array
-    {
-        return $this->update;
     }
 
     public function __toString(): string
@@ -27,5 +22,10 @@ Voici le cours du Bitcoin maintenant : \n
 
 {$this->update['time']['updated']}
 MESSAGE;
+    }
+
+    public function getUpdate(): array
+    {
+        return $this->update;
     }
 }

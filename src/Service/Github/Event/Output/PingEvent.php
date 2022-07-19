@@ -9,7 +9,7 @@ use App\Service\OutputEventInterface;
 final class PingEvent implements OutputEventInterface
 {
     public function __construct(
-        protected array  $data
+        protected array $data
     ) {
     }
 

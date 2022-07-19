@@ -9,13 +9,8 @@ use App\Service\InputEventInterface;
 final class IssueEvent implements InputEventInterface
 {
     public function __construct(
-        private array $update
+        private readonly array $update
     ) {
-    }
-
-    public function getUpdate(): array
-    {
-        return $this->update;
     }
 
     public function __toString(): string
@@ -40,5 +35,10 @@ fermez l'issue sur github pour signaler que vous avez fini
 {$message}
 
 MESSAGE;
+    }
+
+    public function getUpdate(): array
+    {
+        return $this->update;
     }
 }

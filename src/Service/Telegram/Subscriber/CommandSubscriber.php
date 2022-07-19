@@ -17,17 +17,17 @@ use TelegramBot\Api\BotApi;
 final class CommandSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private BotApi                 $api,
-        private Covid19Service         $covid19Service,
-        private BitcoinService         $bitcoinService,
-        private LoggerInterface        $logger,
+        private readonly BotApi $api,
+        private readonly Covid19Service $covid19Service,
+        private readonly BitcoinService $bitcoinService,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
-            CommandEvent::class => 'onCommand'
+            CommandEvent::class => 'onCommand',
         ];
     }
 

@@ -16,12 +16,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'bot:github:fetch', description: 'Interaction with Github')]
 final class GithubFetchCommand extends Command
 {
+    protected static $defaultName = 'bot:fetch-github';
+
     public function __construct(
-        private GithubService            $service,
-        private EventDispatcherInterface $dispatcher,
-        private LoggerInterface          $logger
+        private readonly GithubService $service,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly LoggerInterface $logger
     ) {
-        parent::__construct('bot:fetch-github');
+        parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

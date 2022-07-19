@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Service\Telegram;
 
-use App\Service\InputEventInterface;
-use App\Service\OutputEventInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Container;
@@ -16,9 +14,9 @@ final class CommandDispatcher
 
     public function __construct(
         iterable $commands,
-        private EventDispatcherInterface $dispatcher,
-        private LoggerInterface $logger,
-        private Container $container
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly LoggerInterface $logger,
+        private readonly Container $container
     ) {
         foreach ($commands as $command) {
             $this->handlers[$command->handledBy()] = $command;

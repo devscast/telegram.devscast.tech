@@ -17,7 +17,7 @@ use TelegramBot\Api\Types\Update;
 #[AsController]
 final class TelegramWebhookController
 {
-    public function __construct(private EventDispatcherInterface $dispatcher)
+    public function __construct(private readonly EventDispatcherInterface $dispatcher)
     {
     }
 
@@ -25,11 +25,11 @@ final class TelegramWebhookController
     public function index(Request $request): Response
     {
         /** @var array $data */
-        $data = json_decode(json: (string)$request->getContent(), associative: true);
+        $data = json_decode(json: (string) $request->getContent(), associative: true);
         $update = Update::fromResponse($data);
         $message = $update->getMessage();
 
-        if ($message && !empty($message->getEntities())) {
+        if ($message && ! empty($message->getEntities())) {
             foreach ($message->getEntities() as $entity) {
                 $this->dispatchExtractedCommand($message, $entity);
             }

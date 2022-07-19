@@ -8,13 +8,8 @@ use App\Service\InputEventInterface;
 
 final class Covid19Event implements InputEventInterface
 {
-    public function __construct(private array $update)
+    public function __construct(private readonly array $update)
     {
-    }
-
-    public function getUpdate(): array
-    {
-        return $this->update;
     }
 
     public function __toString(): string
@@ -28,5 +23,10 @@ Voici les dernières actualités sur le covid19 en RDC \n
 
 {$date}
 MESSAGE;
+    }
+
+    public function getUpdate(): array
+    {
+        return $this->update;
     }
 }

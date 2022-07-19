@@ -9,7 +9,7 @@ use App\Service\OutputEventInterface;
 final class IssuesEvent implements OutputEventInterface
 {
     public function __construct(
-        protected array  $data
+        protected array $data
     ) {
     }
 
@@ -22,6 +22,7 @@ final class IssuesEvent implements OutputEventInterface
             default => ''
         };
     }
+
     private function assignedIssue(array $data): string
     {
         $title = sprintf('#%s %s', $data['issue']['number'], $data['issue']['title']);
@@ -38,7 +39,6 @@ final class IssuesEvent implements OutputEventInterface
 🕒 {$date}
 MESSAGE;
     }
-
 
     private function openedIssue(array $data): string
     {

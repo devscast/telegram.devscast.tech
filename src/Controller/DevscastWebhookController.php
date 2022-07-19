@@ -20,7 +20,7 @@ final class DevscastWebhookController extends AbstractController
     public function index(Request $request, EventDispatcherInterface $dispatcher): Response
     {
         /** @var array $data */
-        $data = json_decode(json: (string)$request->getContent(), associative: true);
+        $data = json_decode(json: (string) $request->getContent(), associative: true);
         $event = (string) $request->headers->get('X-Devscast-Event', '');
 
         $event = match ($event) {
@@ -29,7 +29,7 @@ final class DevscastWebhookController extends AbstractController
             default => null
         };
 
-        if (null !== $event) {
+        if ($event !== null) {
             $dispatcher->dispatch($event);
         }
 

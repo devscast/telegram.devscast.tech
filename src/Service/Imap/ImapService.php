@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Service\Imap;
 
-use Ddeboer\Imap\Search\Flag\Unseen;
 use Ddeboer\Imap\ConnectionInterface;
+use Ddeboer\Imap\Search\Flag\Unseen;
 
 final class ImapService
 {
     public function __construct(
-        private ConnectionInterface  $connection,
+        private readonly ConnectionInterface $connection,
     ) {
     }
 
     public function inbox(): iterable
     {
-        $inbox = $this->connection->getMailbox("INBOX");
+        $inbox = $this->connection->getMailbox('INBOX');
         return $inbox->getMessages(
             search: new Unseen(),
             sortCriteria: \SORTDATE, // https://php.net/manual/en/imap.constants.php

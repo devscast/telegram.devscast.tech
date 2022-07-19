@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  database:
+    image: mariadb:10.7.3
+    container_name: devscast_telegram_database
+    restart: unless-stopped
+    environment:
+      MARIADB_USER: root
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: devscast
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'no'
+    volumes:
+      - database-data:/var/lib/mysql:rw
+      - ./var:/var/www/var
+    labels:
+      com.symfony.server.service-prefix: 'DATABASE'
+
+  web:
+    image: nginx:alpine
+    container_name: devscast_telegram_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www:delegated
+      - ./tools/config/nginx.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php
+
+  php:
+    user: '${USER_ID}:${GROUP_ID}'
+    container_name: devscast_telegram_php
+    restart: unless-stopped
+    build:
+      context: ./tools/docker/php
+    volumes:
+      - .:/var/www:delegated
+    depends_on:
+      - database
+
+  php_test:
+    user: '${USER_ID}:${GROUP_ID}'
+    container_name: devscast_telegram_phptest
+    restart: unless-stopped
+    build:
+      context: ./tools/docker/php
+    volumes:
+      - .:/var/www:delegated
+    depends_on:
+      - database_test
+
+  database_test:
+    image: mariadb:10.7.3
+    container_name: devscast_telegram_databasetest
+    restart: unless-stopped
+    environment:
+      MARIADB_USER: test
+      MARIADB_ROOT_PASSWORD: test
+      MARIADB_DATABASE: devscast
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'no'
+
+volumes:
+  database-data:
+    driver:
+      local

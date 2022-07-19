@@ -22,8 +22,8 @@ use TelegramBot\Api\BotApi;
 final class IOEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private BotApi $api,
-        private LoggerInterface $logger
+        private readonly BotApi $api,
+        private readonly LoggerInterface $logger
     ) {
     }
 
@@ -42,7 +42,7 @@ final class IOEventSubscriber implements EventSubscriberInterface
 
             PingEvent::class => 'onEvent',
             PushEvent::class => 'onEvent',
-            IssuesEvent::class => 'onEvent'
+            IssuesEvent::class => 'onEvent',
         ];
     }
 
