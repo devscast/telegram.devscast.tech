@@ -7,6 +7,7 @@ A bot to notify Devscast Ecosystem on different events
 ## Devscast Channel & Community
 * Quiz (Everyday at 18:00)
 * Hacker News Links (Everday at 20:30)
+* Joies du codes memes (Everday at 8:00)
 
 ## Devscast Team
 * Bitcoin Rate (Everyday at 12:00)
