@@ -12,6 +12,7 @@ use App\Service\Github\Event\Input\IssueEvent;
 use App\Service\Github\Event\Output\IssuesEvent;
 use App\Service\Github\Event\Output\PingEvent;
 use App\Service\Github\Event\Output\PushEvent;
+use App\Service\HackerNews\Event\Input\HackerNewsEvent;
 use App\Service\Imap\Event\Input\ImapEvent;
 use App\Service\InputEventInterface;
 use App\Service\OutputEventInterface;
@@ -37,6 +38,7 @@ final class IOEventSubscriber implements EventSubscriberInterface
             ImapEvent::class => 'onEvent',
             IssueEvent::class => 'onEvent',
             QuizEvent::class => 'onEvent',
+            HackerNewsEvent::class => 'onEvent',
 
             // Output events (webhook)
             ContentCreatedEvent::class => 'onEvent',
