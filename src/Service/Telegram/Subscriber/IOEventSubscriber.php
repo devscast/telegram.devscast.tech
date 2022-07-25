@@ -61,6 +61,7 @@ final class IOEventSubscriber implements EventSubscriberInterface
                         chatId: (string) $event->getTarget(),
                         question: 'Votre choix ?',
                         options: $event->getAnswers(),
+                        isAnonymous: true,
                         type: 'quiz',
                         correctOptionId: $event->getCorrectAnswerId(),
                         replyToMessageId: $message->getMessageId(),
