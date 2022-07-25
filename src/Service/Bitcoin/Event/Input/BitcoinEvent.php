@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Bitcoin\Event\Input;
 
 use App\Service\InputEventInterface;
+use App\Service\Telegram\TelegramTarget;
 
 final class BitcoinEvent implements InputEventInterface
 {
@@ -27,5 +28,10 @@ MESSAGE;
     public function getUpdate(): array
     {
         return $this->update;
+    }
+
+    public function getTarget(): TelegramTarget
+    {
+        return new TelegramTarget('devscast-team');
     }
 }

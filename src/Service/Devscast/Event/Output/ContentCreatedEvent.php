@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Devscast\Event\Output;
 
 use App\Service\OutputEventInterface;
+use App\Service\Telegram\TelegramTarget;
 
 final class ContentCreatedEvent implements OutputEventInterface
 {
@@ -50,5 +51,10 @@ MESSAGE;
             link: $data['link'],
             type: $data['type']
         );
+    }
+
+    public function getTarget(): TelegramTarget
+    {
+        return new TelegramTarget('devscast-team');
     }
 }

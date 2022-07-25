@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Github\Event\Output;
 
 use App\Service\OutputEventInterface;
+use App\Service\Telegram\TelegramTarget;
 
 final class PushEvent implements OutputEventInterface
 {
@@ -30,5 +31,10 @@ final class PushEvent implements OutputEventInterface
 👨‍💻 {$pusher}
 🕒 {$date}
 MESSAGE;
+    }
+
+    public function getTarget(): TelegramTarget
+    {
+        return new TelegramTarget('devscast-team');
     }
 }

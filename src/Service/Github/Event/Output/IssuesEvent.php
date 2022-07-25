@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Github\Event\Output;
 
 use App\Service\OutputEventInterface;
+use App\Service\Telegram\TelegramTarget;
 
 final class IssuesEvent implements OutputEventInterface
 {
@@ -21,6 +22,11 @@ final class IssuesEvent implements OutputEventInterface
             'closed' => $this->closedIssue($this->data),
             default => ''
         };
+    }
+
+    public function getTarget(): TelegramTarget
+    {
+        return new TelegramTarget('devscast-team');
     }
 
     private function assignedIssue(array $data): string

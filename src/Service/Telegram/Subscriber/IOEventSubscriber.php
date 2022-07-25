@@ -15,6 +15,7 @@ use App\Service\Github\Event\Output\PushEvent;
 use App\Service\Imap\Event\Input\ImapEvent;
 use App\Service\InputEventInterface;
 use App\Service\OutputEventInterface;
+use App\Service\Quiz\Event\Input\QuizEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use TelegramBot\Api\BotApi;
@@ -35,6 +36,7 @@ final class IOEventSubscriber implements EventSubscriberInterface
             BitcoinEvent::class => 'onEvent',
             ImapEvent::class => 'onEvent',
             IssueEvent::class => 'onEvent',
+            QuizEvent::class => 'onEvent',
 
             // Output events (webhook)
             ContentCreatedEvent::class => 'onEvent',
@@ -49,10 +51,27 @@ final class IOEventSubscriber implements EventSubscriberInterface
     public function onEvent(InputEventInterface|OutputEventInterface $event): void
     {
         try {
-            $this->api->sendMessage(
-                chatId: $_ENV['TELEGRAM_CHAT_ID'],
-                text: (string) $event
-            );
+            if ($event instanceof QuizEvent) {
+                if ($event->isMultipleCorrectAnswers() === false) {
+                    $message = $this->api->sendMessage(
+                        chatId: (string) $event->getTarget(),
+                        text: (string) $event
+                    );
+                    $this->api->sendPoll(
+                        chatId: (string) $event->getTarget(),
+                        question: 'Votre choix ?',
+                        options: $event->getAnswers(),
+                        type: 'quiz',
+                        correctOptionId: $event->getCorrectAnswerId(),
+                        replyToMessageId: $message->getMessageId(),
+                    );
+                }
+            } else {
+                $this->api->sendMessage(
+                    chatId: (string) $event->getTarget(),
+                    text: (string) $event
+                );
+            }
         } catch (\Exception $e) {
             $this->logger->error($e, $e->getTrace());
         }

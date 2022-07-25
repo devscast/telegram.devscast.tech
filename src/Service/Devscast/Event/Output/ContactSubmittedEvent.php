@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Devscast\Event\Output;
 
 use App\Service\OutputEventInterface;
+use App\Service\Telegram\TelegramTarget;
 
 final class ContactSubmittedEvent implements OutputEventInterface
 {
@@ -40,5 +41,10 @@ MESSAGE;
             subject: $data['subject'],
             message: $data['message']
         );
+    }
+
+    public function getTarget(): TelegramTarget
+    {
+        return new TelegramTarget('devscast-hq');
     }
 }
