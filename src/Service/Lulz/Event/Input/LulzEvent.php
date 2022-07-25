@@ -28,7 +28,7 @@ MESSAGE;
 
     public function getTarget(): TelegramTarget
     {
-        return new TelegramTarget('devscast-team');
+        return new TelegramTarget('devscast-community');
     }
 
     public function getImageUrl(): string
