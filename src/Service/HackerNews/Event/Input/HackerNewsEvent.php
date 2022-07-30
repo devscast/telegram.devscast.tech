@@ -36,6 +36,6 @@ MESSAGE;
 
     public function getTarget(): TelegramTarget
     {
-        return new TelegramTarget('devscast-channel');
+        return new TelegramTarget('devscast-community');
     }
 }
