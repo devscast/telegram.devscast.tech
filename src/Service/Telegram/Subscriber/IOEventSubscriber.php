@@ -74,14 +74,16 @@ final class IOEventSubscriber implements EventSubscriberInterface
             } elseif ($event instanceof LulzEvent) {
                 $this->api->sendDocument(
                     chatId: (string) $event->getTarget(),
-                    document: new \CURLFile($event->getImageUrl(), 'image/gif'),
+                    document: new \CURLFile($event->getImageUrl(), mime_type: 'image/gif'),
                     caption: (string) $event
                 );
             } else {
-                $this->api->sendMessage(
-                    chatId: (string) $event->getTarget(),
-                    text: (string) $event
-                );
+                if (!empty($event)) {
+                    $this->api->sendMessage(
+                        chatId: (string) $event->getTarget(),
+                        text: (string) $event
+                    );
+                }
             }
         } catch (\Exception $e) {
             $this->logger->error($e, $e->getTrace());

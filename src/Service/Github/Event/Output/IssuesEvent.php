@@ -31,52 +31,43 @@ final class IssuesEvent implements OutputEventInterface
 
     private function assignedIssue(array $data): string
     {
-        $title = sprintf('#%s %s', $data['issue']['number'], $data['issue']['title']);
+        $title = $data['issue']['number'];
         $assignee = $data['assignee']['login'];
         $project = $data['repository']['name'];
-        $date = date('d M Y H:i');
 
-        return <<< MESSAGE
-👨🏽‍🔧 Assignation de tâche : {$project}
-
-{$title}
-
-👨‍💻 {$assignee}
-🕒 {$date}
-MESSAGE;
+        return sprintf(
+            "📌 issues[%s] est assigné à %s sur le projet %s",
+            $title,
+            $assignee,
+            $project
+        );
     }
 
     private function openedIssue(array $data): string
     {
-        $title = sprintf('#%s %s', $data['issue']['number'], $data['issue']['title']);
+        $title = $data['issue']['number'];
         $project = $data['repository']['name'];
         $sender = $data['sender']['login'];
-        $date = date('d M Y H:i');
 
-        return <<< MESSAGE
-👨🏽‍🔧 Nouvelle Issue : {$project}
-
-{$title}
-
-Créée par {$sender}
-🕒 {$date}
-MESSAGE;
+        return sprintf(
+            "📌 issues[%s] a été ouvert sur le projet %s par %s",
+            $title,
+            $project,
+            $sender
+        );
     }
 
     private function closedIssue(array $data): string
     {
-        $title = sprintf('#%s %s', $data['issue']['number'], $data['issue']['title']);
+        $title = $data['issue']['number'];
         $project = $data['repository']['name'];
         $sender = $data['sender']['login'];
-        $date = date('d M Y H:i');
 
-        return <<< MESSAGE
-👨🏽‍🔧 Fermeture Issue : {$project}
-
-{$title}
-
-Créée par {$sender}
-🕒 {$date}
-MESSAGE;
+        return sprintf(
+            "📌 issues[%s] a été fermé sur le projet %s par %s",
+            $title,
+            $project,
+            $sender
+        );
     }
 }

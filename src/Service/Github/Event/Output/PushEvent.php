@@ -31,7 +31,7 @@ final class PushEvent implements OutputEventInterface
             );
         } else {
             return sprintf(
-                '🔥 %s pushed %s commit %s to %s branch [%s]',
+                '🔥 %s pushed %s commit %s to %s branch : %s',
                 $pusher,
                 $project,
                 $commit,

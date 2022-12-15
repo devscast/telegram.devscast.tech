@@ -34,7 +34,7 @@ final class CommandSubscriber implements EventSubscriberInterface
                 default:
                 case '/start@DevscastNotifierBot':
                 case '/start':
-                    $this->api->sendMessage($chatId, "Hi I'm DevscastNotifierBot", replyToMessageId: $messageId);
+                    $this->api->sendMessage($chatId, "Hi I'm Devscast Bot", replyToMessageId: $messageId);
                     break;
                 case '/rules@DevscastNotifierBot':
                 case '/rules':
@@ -44,7 +44,6 @@ final class CommandSubscriber implements EventSubscriberInterface
                 case '/socials':
                     $this->api->sendMessage($chatId, $this->getSocials(), replyToMessageId: $messageId);
                     break;
-
             }
         } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
@@ -72,7 +71,7 @@ Suivez-nous sur les réseaux sociaux :
 
 - https://twitter.com/devscasttech Twitter.
 
-- https://www.linkedin.com/company/devscast LinkedIn 
+- https://www.linkedin.com/company/devscast LinkedIn.
 
 - https://www.instagram.com/devscast.tech Instagram.
 
