@@ -14,8 +14,6 @@ final class ServiceUnavailableException extends \Exception
 
     public static function fromException(\Throwable $e): self
     {
-        /** @var int $code */
-        $code = $e->getCode();
-        return new self($e->getMessage(), $code, $e->getPrevious());
+        return new self($e->getMessage(), $e->getCode(), $e->getPrevious());
     }
 }

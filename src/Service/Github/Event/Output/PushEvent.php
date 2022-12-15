@@ -21,16 +21,24 @@ final class PushEvent implements OutputEventInterface
         $pusher = $this->data['pusher']['name'];
         $ref = $this->data['ref'];
         $message = $this->data['head_commit']['message'];
-        $date = date('d M Y H:i');
 
-        return <<< MESSAGE
-⬆️ Push : {$project}
-📍 référence : {$ref}
-🗒 {$commit} : {$message}
-
-👨‍💻 {$pusher}
-🕒 {$date}
-MESSAGE;
+        if ($commit === '00000000') {
+            return sprintf(
+                '🔥 %s deleted %s branch %s',
+                $pusher,
+                $project,
+                $ref
+            );
+        } else {
+            return sprintf(
+                '🔥 %s pushed %s commit %s to %s branch [%s]',
+                $pusher,
+                $project,
+                $commit,
+                $ref,
+                $message,
+            );
+        }
     }
 
     public function getTarget(): TelegramTarget
