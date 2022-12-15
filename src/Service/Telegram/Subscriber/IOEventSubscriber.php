@@ -9,9 +9,14 @@ use App\Service\Covid19\Event\Input\Covid19Event;
 use App\Service\Devscast\Event\Output\ContactSubmittedEvent;
 use App\Service\Devscast\Event\Output\ContentCreatedEvent;
 use App\Service\Github\Event\Input\IssueEvent;
+use App\Service\Github\Event\Output\ForkEvent;
 use App\Service\Github\Event\Output\IssuesEvent;
 use App\Service\Github\Event\Output\PingEvent;
+use App\Service\Github\Event\Output\PullRequestEvent;
+use App\Service\Github\Event\Output\PullRequestReviewEvent;
 use App\Service\Github\Event\Output\PushEvent;
+use App\Service\Github\Event\Output\StarEvent;
+use App\Service\Github\Event\Output\StatusEvent;
 use App\Service\HackerNews\Event\Input\HackerNewsEvent;
 use App\Service\Imap\Event\Input\ImapEvent;
 use App\Service\InputEventInterface;
@@ -49,6 +54,11 @@ final class IOEventSubscriber implements EventSubscriberInterface
             PingEvent::class => 'onEvent',
             PushEvent::class => 'onEvent',
             IssuesEvent::class => 'onEvent',
+            ForkEvent::class => 'onEvent',
+            PullRequestEvent::class => 'onEvent',
+            PullRequestReviewEvent::class => 'onEvent',
+            StarEvent::class => 'onEvent',
+            StatusEvent::class => 'onEvent',
         ];
     }
 
