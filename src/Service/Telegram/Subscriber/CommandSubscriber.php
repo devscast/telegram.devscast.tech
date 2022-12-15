@@ -70,12 +70,17 @@ RULES;
         return <<< SOCIALS
 Suivez-nous sur les réseaux sociaux :
 
-- [@DevscastTech](https://twitter.com/devscasttech) sur Twitter. Vous devriez le suivre.
-- [Devscast](https://www.linkedin.com/company/devscast/) sur LinkedIn 
-- [@devscast.tech](https://www.instagram.com/devscast.tech/) sur Instagram.
-- [devscast.tech](https://web.facebook.com/devscast.tech/) sur Facebook.
-- [Devscast](https://www.youtube.com/channel/UCsvWpowwYtjfgS1BOcrX0fw) sur Youtube.
-- [devscast.tech](https://www.tiktok.com/@devscast.tech) sur Tiktok.
+- https://twitter.com/devscasttech Twitter.
+
+- https://www.linkedin.com/company/devscast LinkedIn 
+
+- https://www.instagram.com/devscast.tech Instagram.
+
+- https://web.facebook.com/devscast.tech Facebook.
+
+- https://www.youtube.com/channel/UCsvWpowwYtjfgS1BOcrX0fw Youtube.
+
+- https://www.tiktok.com/@devscast.tech Tiktok.
 SOCIALS;
     }
 }
