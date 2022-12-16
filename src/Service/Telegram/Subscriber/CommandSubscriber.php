@@ -8,6 +8,7 @@ use App\Service\Telegram\Event\CommandEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use TelegramBot\Api\BotApi;
+use TelegramBot\Api\Types\Inline\InlineKeyboardMarkup;
 
 final class CommandSubscriber implements EventSubscriberInterface
 {
@@ -42,7 +43,12 @@ final class CommandSubscriber implements EventSubscriberInterface
                     break;
                 case '/socials@DevscastNotifierBot':
                 case '/socials':
-                    $this->api->sendMessage($chatId, $this->getSocials(), replyToMessageId: $messageId);
+                    $this->api->sendMessage(
+                        chatId: $chatId,
+                        text: 'Suivez-nous sur les réseaux sociaux',
+                        replyToMessageId: $messageId,
+                        replyMarkup: $this->getSocials()
+                    );
                     break;
             }
         } catch (\Throwable $e) {
@@ -64,22 +70,15 @@ Tout comportement suspect sera ban
 RULES;
     }
 
-    private function getSocials(): string
+    private function getSocials(): InlineKeyboardMarkup
     {
-        return <<< SOCIALS
-Suivez-nous sur les réseaux sociaux :
-
-- https://twitter.com/devscasttech Twitter.
-
-- https://www.linkedin.com/company/devscast LinkedIn.
-
-- https://www.instagram.com/devscast.tech Instagram.
-
-- https://web.facebook.com/devscast.tech Facebook.
-
-- https://www.youtube.com/channel/UCsvWpowwYtjfgS1BOcrX0fw Youtube.
-
-- https://www.tiktok.com/@devscast.tech Tiktok.
-SOCIALS;
+        return new InlineKeyboardMarkup(array_chunk([
+            ['text' => 'Twitter', 'url' => 'https://twitter.com/devscasttech'],
+            ['text' => 'Linkedin', 'url' => 'https://www.instagram.com/devscast.tech'],
+            ['text' => 'Instagram', 'url' => 'https://www.instagram.com/devscast.tech'],
+            ['text' => 'Facebook', 'url' => 'https://web.facebook.com/devscast.tech'],
+            ['text' => 'Youtube', 'url' => 'https://www.youtube.com/channel/UCsvWpowwYtjfgS1BOcrX0fw'],
+            ['text' => 'Tiktok', 'url' => 'https://www.tiktok.com/@devscast.tech']
+        ], 2));
     }
 }
