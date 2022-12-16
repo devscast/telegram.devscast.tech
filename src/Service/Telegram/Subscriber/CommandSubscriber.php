@@ -74,7 +74,7 @@ RULES;
     {
         return new InlineKeyboardMarkup(array_chunk([
             ['text' => 'Twitter', 'url' => 'https://twitter.com/devscasttech'],
-            ['text' => 'Linkedin', 'url' => 'https://www.instagram.com/devscast.tech'],
+            ['text' => 'Linkedin', 'url' => 'https://cd.linkedin.com/company/devscast'],
             ['text' => 'Instagram', 'url' => 'https://www.instagram.com/devscast.tech'],
             ['text' => 'Facebook', 'url' => 'https://web.facebook.com/devscast.tech'],
             ['text' => 'Youtube', 'url' => 'https://www.youtube.com/channel/UCsvWpowwYtjfgS1BOcrX0fw'],
