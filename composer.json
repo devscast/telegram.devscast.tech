@@ -16,6 +16,7 @@
     "doctrine/orm": "^2.11",
     "knplabs/github-api": "^3.5",
     "laminas/laminas-feed": "^2.20",
+    "laminas/laminas-http": "^2.18",
     "nyholm/psr7": "^1.4.0",
     "symfony/console": "6.1.*",
     "symfony/css-selector": "6.1.*",

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Telegram\Subscriber;
 
 use App\Service\Devscast\FeedReaderService;
+use App\Service\ServiceUnavailableException;
 use App\Service\Telegram\Event\CommandEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -116,6 +117,7 @@ RULES;
     /**
      * @throws Exception
      * @throws InvalidArgumentException
+     * @throws ServiceUnavailableException
      */
     private function sendLatestLinkFromFeed(string $feed, int|string $chatId, int $messageId): void
     {
@@ -126,7 +128,7 @@ RULES;
             chatId: $chatId,
             text: $message,
             replyToMessageId: $messageId,
-            replyMarkup: new InlineKeyboardMarkup([$data['items']]),
+            replyMarkup: new InlineKeyboardMarkup($data['items']),
         );
     }
 
@@ -165,8 +167,11 @@ et activités tech ayant un fort impact.
 
 Le but:
 - Communiquer, discuter des nouvelles et des technologies.
+
 - Organiser des réunions, inviter des intervenants et des experts.
+
 - Créer et soutenir des projets de logiciels libres (opensource)
+
 - Aider à la formation des nouveaux membres.
 
 Nos plateformes:
