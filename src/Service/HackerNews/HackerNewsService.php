@@ -7,6 +7,11 @@ namespace App\Service\HackerNews;
 use App\Service\ServiceUnavailableException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * class HackerNewsService.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class HackerNewsService
 {
     private const BASE_URL = 'https://hacker-news.firebaseio.com/v0/';

@@ -6,7 +6,6 @@ namespace App\Service\Covid19\Command;
 
 use App\Service\Covid19\Covid19Service;
 use App\Service\Covid19\Event\Input\Covid19Event;
-use App\Service\ServiceUnavailableException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -14,6 +13,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * class Covid19FetchCommand.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 #[AsCommand(name: 'bot:covid19:fetch', description: 'Fetch Covid19 Update for DRC')]
 final class Covid19FetchCommand extends Command
 {
@@ -31,7 +35,7 @@ final class Covid19FetchCommand extends Command
             $update = $this->service->getConfirmedCase();
             $this->dispatcher->dispatch(new Covid19Event($update));
             return Command::SUCCESS;
-        } catch (ServiceUnavailableException $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
             return Command::FAILURE;
         }

@@ -7,6 +7,11 @@ namespace App\Service\Github;
 use Github\Api\Issue;
 use Github\Client;
 
+/**
+ * class GithubService.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class GithubService
 {
     public function __construct(

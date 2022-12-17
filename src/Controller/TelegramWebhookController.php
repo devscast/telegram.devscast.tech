@@ -14,6 +14,11 @@ use TelegramBot\Api\Types\Message;
 use TelegramBot\Api\Types\MessageEntity;
 use TelegramBot\Api\Types\Update;
 
+/**
+ * class TelegramWebhookController.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 #[AsController]
 final class TelegramWebhookController
 {

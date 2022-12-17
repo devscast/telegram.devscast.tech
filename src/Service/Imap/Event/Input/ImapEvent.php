@@ -7,6 +7,11 @@ namespace App\Service\Imap\Event\Input;
 use App\Service\InputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class ImapEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class ImapEvent implements InputEventInterface
 {
     public function __construct(private readonly array $update)

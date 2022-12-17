@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * class DefaultController.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 #[AsController]
 final class DefaultController extends AbstractController
 {

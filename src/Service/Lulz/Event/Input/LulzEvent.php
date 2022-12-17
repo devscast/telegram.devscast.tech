@@ -7,6 +7,11 @@ namespace App\Service\Lulz\Event\Input;
 use App\Service\InputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class LulzEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class LulzEvent implements InputEventInterface
 {
     public function __construct(private readonly array $update)
@@ -16,7 +21,6 @@ final class LulzEvent implements InputEventInterface
     public function __toString(): string
     {
         return <<< MESSAGE
-Devscast JokeTime 😅 😂 🤣 :  \n
 {$this->update['title']}
 MESSAGE;
     }

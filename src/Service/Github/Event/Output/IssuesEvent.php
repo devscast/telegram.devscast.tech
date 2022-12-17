@@ -7,6 +7,11 @@ namespace App\Service\Github\Event\Output;
 use App\Service\OutputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class IssuesEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class IssuesEvent implements OutputEventInterface
 {
     public function __construct(
@@ -36,7 +41,7 @@ final class IssuesEvent implements OutputEventInterface
         $project = $data['repository']['name'];
 
         return sprintf(
-            "📌 issues[%s] est assigné à %s sur le projet %s",
+            '📌 issues[%s] est assigné à %s sur le projet %s',
             $title,
             $assignee,
             $project
@@ -50,7 +55,7 @@ final class IssuesEvent implements OutputEventInterface
         $sender = $data['sender']['login'];
 
         return sprintf(
-            "📌 issues[%s] a été ouvert sur le projet %s par %s",
+            '📌 issues[%s] a été ouvert sur le projet %s par %s',
             $title,
             $project,
             $sender
@@ -64,7 +69,7 @@ final class IssuesEvent implements OutputEventInterface
         $sender = $data['sender']['login'];
 
         return sprintf(
-            "📌 issues[%s] a été fermé sur le projet %s par %s",
+            '📌 issues[%s] a été fermé sur le projet %s par %s',
             $title,
             $project,
             $sender

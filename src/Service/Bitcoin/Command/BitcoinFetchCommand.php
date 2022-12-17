@@ -6,8 +6,6 @@ namespace App\Service\Bitcoin\Command;
 
 use App\Service\Bitcoin\BitcoinService;
 use App\Service\Bitcoin\Event\Input\BitcoinEvent;
-use App\Service\ServiceUnavailableException;
-use Exception;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -15,6 +13,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * class BitcoinFetchCommand.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 #[AsCommand(name: 'bot:bitcoin:fetch', description: 'Get current bitcoin rate')]
 final class BitcoinFetchCommand extends Command
 {
@@ -32,7 +35,7 @@ final class BitcoinFetchCommand extends Command
             $update = $this->service->getRate();
             $this->dispatcher->dispatch(new BitcoinEvent($update));
             return Command::SUCCESS;
-        } catch (Exception | ServiceUnavailableException $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
             return Command::FAILURE;
         }

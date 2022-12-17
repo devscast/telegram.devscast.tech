@@ -6,6 +6,11 @@ namespace App\Service;
 
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * interface InputEventInterface.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 interface InputEventInterface extends \Stringable
 {
     public function __toString(): string;

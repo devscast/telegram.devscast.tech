@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Service\Telegram;
 
+/**
+ * class TelegramTarget.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class TelegramTarget implements \Stringable
 {
     private string $target;

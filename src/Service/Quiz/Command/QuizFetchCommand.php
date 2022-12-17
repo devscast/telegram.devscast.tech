@@ -14,6 +14,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * class QuizFetchCommand.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 #[AsCommand(name: 'bot:quiz:fetch', description: 'Fetch Quiz questions')]
 final class QuizFetchCommand extends Command
 {

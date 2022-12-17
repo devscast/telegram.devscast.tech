@@ -7,6 +7,11 @@ namespace App\Service\HackerNews\Event\Input;
 use App\Service\InputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class HackerNewsEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class HackerNewsEvent implements InputEventInterface
 {
     public function __construct(private readonly array $update)

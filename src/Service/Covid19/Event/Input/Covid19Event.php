@@ -7,6 +7,11 @@ namespace App\Service\Covid19\Event\Input;
 use App\Service\InputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class Covid19Event.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class Covid19Event implements InputEventInterface
 {
     public function __construct(private readonly array $update)

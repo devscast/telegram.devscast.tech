@@ -6,6 +6,11 @@ namespace App\Service\Telegram\Event;
 
 use TelegramBot\Api\Types\Message;
 
+/**
+ * class CommandEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class CommandEvent
 {
     public function __construct(

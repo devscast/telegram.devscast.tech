@@ -7,21 +7,17 @@ namespace App\Service\Covid19;
 use App\Service\ServiceUnavailableException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * class Covid19Service.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class Covid19Service
 {
-    /**
-     * @var string
-     */
     public const COUNTRY_PATH = 'congo (kinshasa)--21.7587---4.0383';
 
-    /**
-     * @var string
-     */
     public const COUNTRY_ISO = 'COD';
 
-    /**
-     * @var string
-     */
     public const BASE_URL = 'https://covid19.mathdro.id/api/confirmed';
 
     public function __construct(

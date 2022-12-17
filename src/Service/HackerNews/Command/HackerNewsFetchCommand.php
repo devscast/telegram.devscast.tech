@@ -6,7 +6,6 @@ namespace App\Service\HackerNews\Command;
 
 use App\Service\HackerNews\Event\Input\HackerNewsEvent;
 use App\Service\HackerNews\HackerNewsService;
-use App\Service\ServiceUnavailableException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -14,6 +13,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * class HackerNewsFetchCommand.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 #[AsCommand(name: 'bot:hackernews:fetch', description: 'Fetch Hacker News top stories')]
 final class HackerNewsFetchCommand extends Command
 {
@@ -31,7 +35,7 @@ final class HackerNewsFetchCommand extends Command
             $update = $this->service->getTopStories();
             $this->dispatcher->dispatch(new HackerNewsEvent($update));
             return Command::SUCCESS;
-        } catch (ServiceUnavailableException $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
             return Command::FAILURE;
         }

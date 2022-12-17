@@ -7,6 +7,11 @@ namespace App\Service\Devscast\Event\Output;
 use App\Service\OutputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class ContentCreatedEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class ContentCreatedEvent implements OutputEventInterface
 {
     private function __construct(

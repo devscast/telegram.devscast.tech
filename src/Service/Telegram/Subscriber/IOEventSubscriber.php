@@ -88,7 +88,7 @@ final class IOEventSubscriber implements EventSubscriberInterface
                     caption: (string) $event
                 );
             } else {
-                if (!empty($event)) {
+                if (strlen((string) $event) !== 0) {
                     $this->api->sendMessage(
                         chatId: (string) $event->getTarget(),
                         text: (string) $event

@@ -7,6 +7,11 @@ namespace App\Service\Bitcoin;
 use App\Service\ServiceUnavailableException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * class BitcoinService.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class BitcoinService
 {
     /**

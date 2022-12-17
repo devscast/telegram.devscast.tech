@@ -7,6 +7,11 @@ namespace App\Service\Quiz\Event\Input;
 use App\Service\InputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class QuizEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class QuizEvent implements InputEventInterface
 {
     private array $answers;
@@ -32,13 +37,9 @@ final class QuizEvent implements InputEventInterface
 
     public function __toString(): string
     {
-        $tags = join(',', array_map(
-            fn ($t) => strtolower($t['name']),
-            $this->update['tags']
-        ));
+        $tags = join(',', array_map(fn ($t) => strtolower($t['name']), $this->update['tags']));
 
         return <<< MESSAGE
-Devscast QuizTime 👩‍💻 🧑‍💻 : \n
 {$this->update['question']} \n
 (tags: {$tags})
 MESSAGE;

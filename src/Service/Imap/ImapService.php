@@ -7,6 +7,11 @@ namespace App\Service\Imap;
 use Ddeboer\Imap\ConnectionInterface;
 use Ddeboer\Imap\Search\Flag\Unseen;
 
+/**
+ * class ImapService.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class ImapService
 {
     public function __construct(

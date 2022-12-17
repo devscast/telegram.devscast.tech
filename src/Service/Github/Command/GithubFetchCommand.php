@@ -13,6 +13,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * class GithubFetchCommand.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 #[AsCommand(name: 'bot:github:fetch', description: 'Interaction with Github')]
 final class GithubFetchCommand extends Command
 {
@@ -32,7 +37,7 @@ final class GithubFetchCommand extends Command
             $update = $this->service->getIssues();
             $this->dispatcher->dispatch(new IssueEvent($update));
             return Command::SUCCESS;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
             return Command::FAILURE;
         }

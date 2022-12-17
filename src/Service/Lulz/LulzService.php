@@ -8,6 +8,11 @@ use App\Service\ServiceUnavailableException;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * class LulzService.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class LulzService
 {
     private const BASE_URL = 'https://lesjoiesducode.fr/random';

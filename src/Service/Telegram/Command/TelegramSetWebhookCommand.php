@@ -11,8 +11,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TelegramBot\Api\BotApi;
-use TelegramBot\Api\Exception;
 
+/**
+ * class TelegramSetWebhookCommand.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 #[AsCommand(
     name: 'bot:telegram:webhook',
     description: 'Set a webhook for telegram bot'
@@ -39,7 +43,7 @@ final class TelegramSetWebhookCommand extends Command
             $this->api->setWebhook($url);
             $message = sprintf('webhook %s', $url);
             $io->success($message);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             $io->error($e->getMessage());
             return Command::FAILURE;
         }

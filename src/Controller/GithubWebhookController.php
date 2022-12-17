@@ -18,6 +18,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * class GithubWebhookController.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 #[AsController]
 final class GithubWebhookController
 {

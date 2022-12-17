@@ -7,6 +7,11 @@ namespace App\Service\Bitcoin\Event\Input;
 use App\Service\InputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class BitcoinEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class BitcoinEvent implements InputEventInterface
 {
     public function __construct(private readonly array $update)

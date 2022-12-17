@@ -7,6 +7,11 @@ namespace App\Service\Github\Event\Input;
 use App\Service\InputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class IssueEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class IssueEvent implements InputEventInterface
 {
     public function __construct(

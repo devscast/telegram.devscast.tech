@@ -7,6 +7,11 @@ namespace App\Service\Imap;
 use Ddeboer\Imap\ConnectionInterface;
 use Ddeboer\Imap\Server;
 
+/**
+ * class ImapConnectionFactory.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class ImapConnectionFactory
 {
     public static function createInstance(): ConnectionInterface

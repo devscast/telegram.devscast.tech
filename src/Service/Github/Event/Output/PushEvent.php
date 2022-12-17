@@ -7,6 +7,11 @@ namespace App\Service\Github\Event\Output;
 use App\Service\OutputEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
+/**
+ * class PushEvent.
+ *
+ * @author bernard-ng <bernard@devscast.tech>
+ */
 final class PushEvent implements OutputEventInterface
 {
     public function __construct(
@@ -29,16 +34,15 @@ final class PushEvent implements OutputEventInterface
                 $project,
                 $ref
             );
-        } else {
-            return sprintf(
-                '🔥 %s pushed %s commit %s to %s branch : %s',
-                $pusher,
-                $project,
-                $commit,
-                $ref,
-                $message,
-            );
         }
+        return sprintf(
+            '🔥 %s pushed %s commit %s to %s branch : %s',
+            $pusher,
+            $project,
+            $commit,
+            $ref,
+            $message,
+        );
     }
 
     public function getTarget(): TelegramTarget
