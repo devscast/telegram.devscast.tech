@@ -42,8 +42,9 @@ final class CommandSubscriber implements EventSubscriberInterface
         try {
             match ($event->getCommand()) {
                 '/start@DevscastNotifierBot', '/start' => $this->sendStartMenu($chatId, $messageId),
-                '/rules@DevscastNotifierBot', '/rules' => $this->sendRules($chatId, $messageId),
+                '/about@DevscastNotifierBot', '/about' => $this->sendAbout($chatId, $messageId),
                 '/socials@DevscastNotifierBot', '/socials' => $this->sendSocialsLinks($chatId, $messageId),
+                '/rules@DevscastNotifierBot', '/rules' => $this->sendRules($chatId, $messageId),
                 '/posts@DevscastNotifierBot', '/posts' => $this->sendLatestLinkFromFeed('posts', $chatId, $messageId),
                 '/podcasts@DevscastNotifierBot', '/podcasts' => $this->sendLatestLinkFromFeed('podcasts', $chatId, $messageId),
             };
@@ -136,7 +137,7 @@ RULES;
     private function sendStartMenu(int|string $chatId, int $messageId): void
     {
         $menu = <<< MENU
-Hi I'm DevscastBot
+Hello, I'm DevscastBot
 
 /start : affiche ce menu
 /about: à propos de devscast
@@ -147,5 +148,37 @@ Hi I'm DevscastBot
 MENU;
 
         $this->api->sendMessage($chatId, $menu, replyToMessageId: $messageId);
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    private function sendAbout(int|string $chatId, int $messageId): void
+    {
+        $about = <<< ABOUT
+Devscast, 
+
+Bâtie autour d'une communauté nous construisons un écosystème d'apprentissage,
+accompagnement et recrutement de développeur grâce à la production de contenu dans le contexte local,
+et activités tech ayant un fort impact.
+
+Le but:
+- Communiquer, discuter des nouvelles et des technologies.
+- Organiser des réunions, inviter des intervenants et des experts.
+- Créer et soutenir des projets de logiciels libres (opensource)
+- Aider à la formation des nouveaux membres.
+
+Nos plateformes:
+- https://devscast.tech
+- https://github.com/devscast
+- https://devscast.org (building...)
+
+Nous Contactez:
+- contact@devscast.tech
+ABOUT;
+
+
+        $this->api->sendMessage($chatId, $about, replyToMessageId: $messageId);
     }
 }
