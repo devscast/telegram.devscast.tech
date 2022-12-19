@@ -183,7 +183,6 @@ Nous Contactez:
 - contact@devscast.tech
 ABOUT;
 
-
         $this->api->sendMessage($chatId, $about, replyToMessageId: $messageId);
     }
 }
