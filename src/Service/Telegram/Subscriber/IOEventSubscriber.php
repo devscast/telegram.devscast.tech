@@ -23,9 +23,14 @@ use App\Service\InputEventInterface;
 use App\Service\Lulz\Event\Input\LulzEvent;
 use App\Service\OutputEventInterface;
 use App\Service\Quiz\Event\Input\QuizEvent;
+use App\Service\RestrictedEventInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use TelegramBot\Api\BotApi;
+use TelegramBot\Api\Exception;
+use TelegramBot\Api\HttpException;
+use TelegramBot\Api\InvalidArgumentException;
+use TelegramBot\Api\InvalidJsonException;
 
 final class IOEventSubscriber implements EventSubscriberInterface
 {
@@ -65,38 +70,68 @@ final class IOEventSubscriber implements EventSubscriberInterface
     public function onEvent(InputEventInterface|OutputEventInterface $event): void
     {
         try {
-            if ($event instanceof QuizEvent) {
-                if ($event->isMultipleCorrectAnswers() === false) {
-                    $message = $this->api->sendMessage(
-                        chatId: (string) $event->getTarget(),
-                        text: (string) $event
-                    );
-                    $this->api->sendPoll(
-                        chatId: (string) $event->getTarget(),
-                        question: 'Votre choix ?',
-                        options: $event->getAnswers(),
-                        isAnonymous: true,
-                        type: 'quiz',
-                        correctOptionId: $event->getCorrectAnswerId(),
-                        replyToMessageId: $message->getMessageId(),
-                    );
-                }
-            } elseif ($event instanceof LulzEvent) {
-                $this->api->sendDocument(
-                    chatId: (string) $event->getTarget(),
-                    document: new \CURLFile($event->getImageUrl(), mime_type: 'image/gif'),
-                    caption: (string) $event
-                );
-            } else {
-                if (strlen((string) $event) !== 0) {
-                    $this->api->sendMessage(
-                        chatId: (string) $event->getTarget(),
-                        text: (string) $event
-                    );
-                }
-            }
-        } catch (\Exception $e) {
+            match (true) {
+                $event instanceof QuizEvent => $this->sendQuiz($event),
+                $event instanceof LulzEvent => $this->sendLulz($event),
+                default => $this->send($event)
+            };
+        } catch (\Throwable $e) {
             $this->logger->error($e, $e->getTrace());
+        }
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     * @throws InvalidJsonException
+     * @throws Exception
+     * @throws HttpException
+     */
+    private function sendQuiz(QuizEvent $event): void
+    {
+        if ($event->isMultipleCorrectAnswers() === false) {
+            $message = $this->api->sendMessage(
+                chatId: (string) $event->getTarget(),
+                text: (string) $event
+            );
+            $this->api->sendPoll(
+                chatId: (string) $event->getTarget(),
+                question: 'Votre choix ?',
+                options: $event->getAnswers(),
+                isAnonymous: true,
+                type: 'quiz',
+                correctOptionId: $event->getCorrectAnswerId(),
+                replyToMessageId: $message->getMessageId(),
+            );
+        }
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    private function sendLulz(LulzEvent $event): void
+    {
+        $this->api->sendDocument(
+            chatId: (string) $event->getTarget(),
+            document: new \CURLFile($event->getImageUrl(), mime_type: 'image/gif'),
+            caption: (string) $event
+        );
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    private function send(OutputEventInterface|InputEventInterface $event): void
+    {
+        if (strlen((string) $event) !== 0) {
+            if ($event instanceof RestrictedEventInterface) {
+                exit;
+            }
+            $this->api->sendMessage(
+                chatId: (string) $event->getTarget(),
+                text: (string) $event
+            );
         }
     }
 }

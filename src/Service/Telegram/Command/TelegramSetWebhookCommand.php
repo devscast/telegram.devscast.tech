@@ -23,8 +23,9 @@ use TelegramBot\Api\BotApi;
 )]
 final class TelegramSetWebhookCommand extends Command
 {
-    public function __construct(private readonly BotApi $api)
-    {
+    public function __construct(
+        private readonly BotApi $api
+    ) {
         parent::__construct();
     }
 

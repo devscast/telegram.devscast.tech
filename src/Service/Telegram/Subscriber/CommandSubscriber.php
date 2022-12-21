@@ -48,6 +48,7 @@ final class CommandSubscriber implements EventSubscriberInterface
                 '/rules@DevscastNotifierBot', '/rules' => $this->sendRules($chatId, $messageId),
                 '/posts@DevscastNotifierBot', '/posts' => $this->sendLatestLinkFromFeed('posts', $chatId, $messageId),
                 '/podcasts@DevscastNotifierBot', '/podcasts' => $this->sendLatestLinkFromFeed('podcasts', $chatId, $messageId),
+                default => $this->sendCommandNotFound($chatId, $messageId)
             };
         } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
@@ -184,5 +185,14 @@ Nous Contactez:
 ABOUT;
 
         $this->api->sendMessage($chatId, $about, replyToMessageId: $messageId);
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    private function sendCommandNotFound(int|string $chatId, int $messageId): void
+    {
+        $this->api->sendMessage($chatId, 'Oups 404!', replyToMessageId: $messageId);
     }
 }

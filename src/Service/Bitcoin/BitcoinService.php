@@ -30,7 +30,7 @@ final class BitcoinService
     public function getRate(): array
     {
         try {
-            return ($this->client->request('GET', self::BASE_URL))->toArray();
+            return $this->client->request('GET', self::BASE_URL)->toArray();
         } catch (\Throwable $e) {
             throw ServiceUnavailableException::fromException($e);
         }

@@ -23,8 +23,9 @@ final class QuizEvent implements InputEventInterface
     /**
      * @see https://quizapi.io/docs/1.0/overview
      */
-    public function __construct(private readonly array $update)
-    {
+    public function __construct(
+        private readonly array $update
+    ) {
         $this->answers = array_filter(array_values($update['answers']), fn ($v) => $v !== null);
         $this->multipleCorrectAnswers = $this->update['multiple_correct_answers'] === 'true';
         $corrects = array_filter(

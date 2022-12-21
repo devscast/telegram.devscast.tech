@@ -22,8 +22,9 @@ use TelegramBot\Api\Types\Update;
 #[AsController]
 final class TelegramWebhookController
 {
-    public function __construct(private readonly EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        private readonly EventDispatcherInterface $dispatcher
+    ) {
     }
 
     #[Route('/webhook/telegram', name: 'app_webhook_telegram', methods: ['POST'])]

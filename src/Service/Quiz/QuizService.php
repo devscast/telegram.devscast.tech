@@ -30,13 +30,13 @@ final class QuizService
     public function getQuestion(): array
     {
         try {
-            return ($this->client->request('GET', self::BASE_URL, [
+            return $this->client->request('GET', self::BASE_URL, [
                 'query' => [
                     'apiKey' => $_ENV['QUIZAPI_KEY'],
                     'limit' => 1,
                     'difficulty' => 'easy',
                 ],
-            ]))->toArray()[0];
+            ])->toArray()[0];
         } catch (\Throwable $e) {
             throw ServiceUnavailableException::fromException($e);
         }

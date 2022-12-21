@@ -16,8 +16,9 @@ use Psr\Log\LoggerInterface;
  */
 final class FeedReaderService
 {
-    public function __construct(private readonly LoggerInterface $logger)
-    {
+    public function __construct(
+        private readonly LoggerInterface $logger
+    ) {
     }
 
     /**

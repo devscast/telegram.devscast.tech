@@ -16,8 +16,9 @@ final class HackerNewsService
 {
     private const BASE_URL = 'https://hacker-news.firebaseio.com/v0/';
 
-    public function __construct(private readonly HttpClientInterface $client)
-    {
+    public function __construct(
+        private readonly HttpClientInterface $client
+    ) {
     }
 
     /**

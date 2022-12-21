@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Github\Event\Input;
 
 use App\Service\InputEventInterface;
+use App\Service\RestrictedEventInterface;
 use App\Service\Telegram\TelegramTarget;
 
 /**
@@ -12,7 +13,7 @@ use App\Service\Telegram\TelegramTarget;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class IssueEvent implements InputEventInterface
+final class IssueEvent implements RestrictedEventInterface, InputEventInterface
 {
     public function __construct(
         private readonly array $update

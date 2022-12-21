@@ -14,8 +14,9 @@ use App\Service\Telegram\TelegramTarget;
  */
 final class HackerNewsEvent implements InputEventInterface
 {
-    public function __construct(private readonly array $update)
-    {
+    public function __construct(
+        private readonly array $update
+    ) {
     }
 
     public function __toString(): string

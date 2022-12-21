@@ -11,7 +11,7 @@ use App\Service\Telegram\TelegramTarget;
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-interface InputEventInterface extends \Stringable
+interface InputEventInterface extends OutputEventInterface
 {
     public function __toString(): string;
 
