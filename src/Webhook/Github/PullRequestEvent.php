@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Webhook\Github;
 
 use App\Telegram\ChatId;
+use App\Telegram\Str;
 use App\Webhook\WebhookEventInterface;
 
 /**
@@ -47,27 +48,27 @@ final class PullRequestEvent implements WebhookEventInterface
     private function openedPullRequest(array $data): string
     {
         return sprintf(
-            '⬆ pull_request[%s] a été ouvert sur le projet %s par %s',
+            '⬆ pull_request[%d] a été ouvert sur le projet %s par %s',
             $data['pull_request']['number'],
-            $data['repository']['name'],
-            $data['sender']['login']
+            Str::escape($data['repository']['name']),
+            Str::escape($data['sender']['login'])
         );
     }
 
     private function closedPullRequest(array $data): string
     {
         return sprintf(
-            '⬆ pull_request[%s] a été fermé sur le projet %s par %s',
+            '⬆ pull_request[%d] a été fermé sur le projet %s par %s',
             $data['pull_request']['number'],
-            $data['repository']['name'],
-            $data['sender']['login']
+            Str::escape($data['repository']['name']),
+            Str::escape($data['sender']['login'])
         );
     }
 
     private function assignedPullRequest(array $data): string
     {
         return sprintf(
-            '⬆ pull_request[%s] a été assigné à %s sur le projet %s',
+            '⬆ pull_request[%d] a été assigné à %s sur le projet %s',
             $data['pull_request']['number'],
             $data['assignee']['login'],
             $data['repository']['name']
@@ -77,50 +78,50 @@ final class PullRequestEvent implements WebhookEventInterface
     private function editedPullRequest(array $data): string
     {
         return sprintf(
-            '⬆ pull_request[%s] a été édité sur le projet %s par %s',
+            '⬆ pull_request[%d] a été édité sur le projet %s par %s',
             $data['pull_request']['number'],
-            $data['repository']['name'],
-            $data['sender']['login']
+            Str::escape($data['repository']['name']),
+            Str::escape($data['sender']['login'])
         );
     }
 
     private function unassignedPullRequest(array $data): string
     {
         return sprintf(
-            '⬆ pull_request[%s] a été désassigné à %s sur le projet %s',
+            '⬆ pull_request[%d] a été désassigné à %s sur le projet %s',
             $data['pull_request']['number'],
-            $data['assignee']['login'],
-            $data['repository']['name']
+            Str::escape($data['assignee']['login']),
+            Str::escape($data['repository']['name'])
         );
     }
 
     private function reopenPullRequest(array $data): string
     {
         return sprintf(
-            '⬆ pull_request[%s] a été réouvert sur le projet %s par %s',
+            '⬆ pull_request[%d] a été réouvert sur le projet %s par %s',
             $data['pull_request']['number'],
-            $data['repository']['name'],
-            $data['sender']['login']
+            Str::escape($data['repository']['name']),
+            Str::escape($data['sender']['login'])
         );
     }
 
     private function reviewRequestedPullRequest(array $data): string
     {
         return sprintf(
-            '⬆ pull_request[%s] a été demandé en review à %s sur le projet %s',
+            '⬆ pull_request[%d] a été demandé en review à %s sur le projet %s',
             $data['pull_request']['number'],
-            $data['requested_reviewer']['login'],
-            $data['repository']['name']
+            Str::escape($data['requested_reviewer']['login']),
+            Str::escape($data['repository']['name'])
         );
     }
 
     private function milestonedPullRequest(array $data): string
     {
         return sprintf(
-            '⬆pull_request[%s] a été ajouté au milestone %s sur le projet %s',
+            '⬆pull_request[%d] a été ajouté au milestone %s sur le projet %s',
             $data['pull_request']['number'],
-            $data['milestone']['title'],
-            $data['repository']['name']
+            Str::escape($data['milestone']['title']),
+            Str::escape($data['repository']['name'])
         );
     }
 }

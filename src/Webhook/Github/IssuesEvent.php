@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Webhook\Github;
 
 use App\Telegram\ChatId;
+use App\Telegram\Str;
 use App\Webhook\WebhookEventInterface;
 
 /**
@@ -42,11 +43,11 @@ final class IssuesEvent implements WebhookEventInterface
     private function assignedIssue(array $data): string
     {
         $title = $data['issue']['number'];
-        $assignee = $data['assignee']['login'];
-        $project = $data['repository']['name'];
+        $assignee = Str::escape($data['assignee']['login']);
+        $project = Str::escape($data['repository']['name']);
 
         return sprintf(
-            '📌 issues[%s] est assigné à *%s* sur le projet *%s*',
+            '📌 issues[%d] est assigné à *%s* sur le projet *%s*',
             $title,
             $assignee,
             $project
@@ -56,11 +57,11 @@ final class IssuesEvent implements WebhookEventInterface
     private function openedIssue(array $data): string
     {
         $title = $data['issue']['number'];
-        $project = $data['repository']['name'];
-        $sender = $data['sender']['login'];
+        $project = Str::escape($data['repository']['name']);
+        $sender = Str::escape($data['sender']['login']);
 
         return sprintf(
-            '📌 issues[%s] a été ouvert sur le projet *%s* par *%s*',
+            '📌 issues[%d] a été ouvert sur le projet *%s* par *%s*',
             $title,
             $project,
             $sender
@@ -70,11 +71,11 @@ final class IssuesEvent implements WebhookEventInterface
     private function closedIssue(array $data): string
     {
         $title = $data['issue']['number'];
-        $project = $data['repository']['name'];
-        $sender = $data['sender']['login'];
+        $project = Str::escape($data['repository']['name']);
+        $sender = Str::escape($data['sender']['login']);
 
         return sprintf(
-            '📌 issues[%s] a été fermé sur le projet *%s* par *%s*',
+            '📌 issues[%d] a été fermé sur le projet *%s* par *%s*',
             $title,
             $project,
             $sender

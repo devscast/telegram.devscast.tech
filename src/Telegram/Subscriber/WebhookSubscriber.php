@@ -71,7 +71,9 @@ final class WebhookSubscriber implements EventSubscriberInterface
         if (strlen((string) $event) !== 0) {
             $this->api->sendMessage(
                 chatId: (string) $event->getChatId(),
-                text: (string) $event
+                text: (string) $event,
+                parseMode: 'MarkdownV2',
+                disablePreview: true
             );
         }
     }

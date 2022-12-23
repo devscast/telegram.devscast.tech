@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Webhook\Github;
 
 use App\Telegram\ChatId;
+use App\Telegram\Str;
 use App\Webhook\WebhookEventInterface;
 
 /**
@@ -21,8 +22,8 @@ final class ForkEvent implements WebhookEventInterface
 
     public function __toString(): string
     {
-        $forker = $this->data['forkee']['owner']['login'];
-        $project = $this->data['repository']['name'];
+        $forker = Str::escape($this->data['forkee']['owner']['login']);
+        $project = Str::escape($this->data['repository']['name']);
 
         return sprintf(
             '🍴 *%s* forked *%s*',

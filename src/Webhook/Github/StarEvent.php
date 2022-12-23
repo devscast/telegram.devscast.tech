@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Webhook\Github;
 
 use App\Telegram\ChatId;
+use App\Telegram\Str;
 use App\Webhook\WebhookEventInterface;
 
 /**
@@ -21,8 +22,8 @@ final class StarEvent implements WebhookEventInterface
 
     public function __toString(): string
     {
-        $starrer = $this->data['sender']['login'];
-        $project = $this->data['repository']['name'];
+        $starrer = Str::escape($this->data['sender']['login']);
+        $project = Str::escape($this->data['repository']['name']);
 
         return sprintf(
             '✨ %s starred *%s*',

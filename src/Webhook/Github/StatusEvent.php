@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Webhook\Github;
 
 use App\Telegram\ChatId;
+use App\Telegram\Str;
 use App\Webhook\WebhookEventInterface;
 
 /**
@@ -23,7 +24,7 @@ final class StatusEvent implements WebhookEventInterface
     {
         if ($this->data['state'] === 'failure' || $this->data['state'] === 'error') {
             $status = $this->data['state'];
-            $project = $this->data['repository']['name'];
+            $project = Str::escape($this->data['repository']['name']);
             $commit = $this->data['sha'];
 
             return sprintf(

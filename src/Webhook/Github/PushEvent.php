@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Webhook\Github;
 
 use App\Telegram\ChatId;
+use App\Telegram\Str;
 use App\Webhook\WebhookEventInterface;
 
 /**
@@ -22,10 +23,10 @@ final class PushEvent implements WebhookEventInterface
     public function __toString(): string
     {
         $commit = substr(strval($this->data['after']), 0, 8);
-        $project = $this->data['repository']['name'];
-        $pusher = $this->data['pusher']['name'];
-        $ref = str_replace('refs/heads/', '', $this->data['ref']);
-        $message = $this->data['head_commit']['message'];
+        $project = Str::escape($this->data['repository']['name']);
+        $pusher = Str::escape($this->data['pusher']['name']);
+        $ref = Str::escape(str_replace('refs/heads/', '', $this->data['ref']));
+        $message = Str::escape($this->data['head_commit']['message']);
 
         if ($commit === '00000000') {
             return sprintf(
@@ -36,7 +37,7 @@ final class PushEvent implements WebhookEventInterface
             );
         }
         return sprintf(
-            '🔥 *%s* a fait un push sur *%s* \n commit *%s*, branche *%s* \n\n ||%s||',
+            '🔥 *%s* a fait un push sur *%s* commit *%s*, branche *%s* \: %s',
             $pusher,
             $project,
             $commit,

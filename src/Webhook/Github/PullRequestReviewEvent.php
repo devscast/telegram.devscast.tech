@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Webhook\Github;
 
 use App\Telegram\ChatId;
+use App\Telegram\Str;
 use App\Webhook\WebhookEventInterface;
 
 /**
@@ -21,10 +22,10 @@ final class PullRequestReviewEvent implements WebhookEventInterface
 
     public function __toString(): string
     {
-        $reviewer = $this->data['review']['user']['login'];
-        $project = $this->data['repository']['name'];
-        $pullRequest = $this->data['pull_request']['number'];
-        $action = $this->data['action'];
+        $reviewer = Str::escape($this->data['review']['user']['login']);
+        $project = Str::escape($this->data['repository']['name']);
+        $pullRequest = Str::escape($this->data['pull_request']['number']);
+        $action = Str::escape($this->data['action']);
 
         return sprintf(
             '⬆ %s %s %s pull request %s',
