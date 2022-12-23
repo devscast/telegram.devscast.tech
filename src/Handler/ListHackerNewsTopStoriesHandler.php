@@ -4,47 +4,66 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-use App\Command\HackerNewsStoriesCommand;
-use App\Event\HackerNewsStoriesEvent;
-use App\Service\ServiceUnavailableException;
-use Psr\EventDispatcher\EventDispatcherInterface;
+use App\Command\ListHackerNewsTopStoriesCommand;
+use App\Telegram\Exception\ServiceUnavailableException;
+use App\Telegram\Str;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use TelegramBot\Api\BotApi;
+use TelegramBot\Api\Exception;
+use TelegramBot\Api\InvalidArgumentException;
 
 /**
  * class HackerNewsService.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class HackerNewsStoriesHandler
+#[AsMessageHandler]
+final class ListHackerNewsTopStoriesHandler
 {
     private const BASE_URL = 'https://hacker-news.firebaseio.com/v0/';
 
     public function __construct(
         private readonly HttpClientInterface $client,
-        private readonly EventDispatcherInterface $dispatcher
+        private readonly BotApi $api
     ) {
     }
 
     /**
      * @throws ServiceUnavailableException
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
-    public function __invoke(HackerNewsStoriesCommand $command): void
+    public function __invoke(ListHackerNewsTopStoriesCommand $command): void
     {
-        $update = $this->getTopStories();
-        $this->dispatcher->dispatch(new HackerNewsStoriesEvent($update));
+        $update = $this->getUpdate();
+        $stories = '';
+
+        foreach ($update as $news) {
+            $title = Str::escape($news['title']);
+            $stories .= "[{$title}]({$news['url']}) \n\n";
+        }
+
+        $this->api->sendMessage(
+            chatId: (string) $command->getChatId(),
+            text: "*10 stories intéressants* \n\n{$stories}\n\n _source: hackernews_",
+            parseMode: 'MarkdownV2',
+            disablePreview: true,
+            replyToMessageId: $command->getReplyToMessageId()
+        );
     }
 
     /**
      * @throws ServiceUnavailableException
      */
-    public function getTopStories(): array
+    public function getUpdate(): array
     {
         try {
             $stories = [];
             $storiesIds = array_slice(
                 array: $this->client->request('GET', self::BASE_URL . '/newstories.json')->toArray(),
                 offset: 0,
-                length: 5
+                length: 11
             );
 
             foreach ($storiesIds as $storyId) {

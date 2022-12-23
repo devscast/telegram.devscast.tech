@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-use App\Command\CovidUpdateCommand;
-use App\Event\BitcoinRateEvent;
-use App\Event\CovidUpdateEvent;
-use App\Service\ServiceUnavailableException;
-use Psr\EventDispatcher\EventDispatcherInterface;
+use App\Command\GetCovidUpdateCommand;
+use App\Telegram\Exception\ServiceUnavailableException;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use TelegramBot\Api\BotApi;
+use TelegramBot\Api\Exception;
+use TelegramBot\Api\InvalidArgumentException;
 
 /**
  * class CovidUpdateHandler.
@@ -18,7 +18,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * @author bernard-ng <bernard@devscast.tech>
  */
 #[AsMessageHandler]
-final class CovidUpdateHandler
+final class GetCovidUpdateHandler
 {
     public const COUNTRY_PATH = 'congo (kinshasa)--21.7587---4.0383';
 
@@ -28,23 +28,33 @@ final class CovidUpdateHandler
 
     public function __construct(
         private readonly HttpClientInterface $client,
-        private readonly EventDispatcherInterface $dispatcher
+        private readonly BotApi $api
     ) {
     }
 
     /**
      * @throws ServiceUnavailableException
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
-    public function __invoke(CovidUpdateCommand $command): void
+    public function __invoke(GetCovidUpdateCommand $command): void
     {
-        $update = $this->getConfirmedCase();
-        $this->dispatcher->dispatch(new CovidUpdateEvent($update));
+        $update = $this->getUpdate();
+        $text = "😷 Covid19RDC,
+        \n Cas Confirmés[*{$update['confirmed']}*] - Décès[*{$update['deaths']}*] - Guérisons[*{$update['recovered']}*]";
+
+        $this->api->sendMessage(
+            chatId: (string) $command->getChatId(),
+            text: $text,
+            parseMode: 'MarkdownV2',
+            replyToMessageId: $command->getReplyToMessageId()
+        );
     }
 
     /**
      * @throws ServiceUnavailableException
      */
-    public function getConfirmedCase(): array
+    public function getUpdate(): array
     {
         try {
             $data = ($this->client->request('GET', self::BASE_URL))->toArray();

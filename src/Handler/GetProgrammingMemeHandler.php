@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-use App\Event\LulzEvent;
-use App\Service\ServiceUnavailableException;
-use Psr\EventDispatcher\EventDispatcherInterface;
+use App\Command\GetProgrammingMemeCommand;
+use App\Telegram\Exception\ServiceUnavailableException;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use TelegramBot\Api\BotApi;
+use TelegramBot\Api\Exception;
+use TelegramBot\Api\InvalidArgumentException;
 
 /**
  * class LulzHandler.
@@ -17,29 +19,36 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * @author bernard-ng <bernard@devscast.tech>
  */
 #[AsMessageHandler]
-final class LulzHandler
+final class GetProgrammingMemeHandler
 {
     private const BASE_URL = 'https://lesjoiesducode.fr/random';
 
     public function __construct(
         private readonly HttpClientInterface $client,
-        private readonly EventDispatcherInterface $dispatcher
+        private readonly BotApi $api
     ) {
     }
 
     /**
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws ServiceUnavailableException
      */
-    public function __invoke(): void
+    public function __invoke(GetProgrammingMemeCommand $command): void
     {
-        $update = $this->getMeme();
-        $this->dispatcher->dispatch(new LulzEvent($update));
+        $update = $this->getUpdate();
+        $this->api->sendDocument(
+            chatId: (string) $command->getChatId(),
+            document: new \CURLFile($update['image_url'], mime_type: 'image/gif'),
+            caption: (string) $update['title'],
+            replyToMessageId: $command->getReplyToMessageId()
+        );
     }
 
     /**
      * @throws ServiceUnavailableException
      */
-    public function getMeme(): array
+    public function getUpdate(): array
     {
         try {
             $crawler = new Crawler($this->client->request('GET', self::BASE_URL, [
