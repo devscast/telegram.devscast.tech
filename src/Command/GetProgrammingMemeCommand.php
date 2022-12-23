@@ -4,11 +4,23 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Telegram\BotReply;
+use App\Telegram\BotTrigger;
+
 /**
- * class LulzCommand.
+ * class GetProgrammingMemeCommand.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class LulzCommand
+final class GetProgrammingMemeCommand extends AbstractCommand
 {
+    public const NAME = 'joieducodes';
+
+    public const RESTRICTED = true;
+
+    public const TRIGGERS = [BotTrigger::CHAT, BotTrigger::CLI];
+
+    public const REPLY_MODE = BotReply::CURRENT_CHAT;
+
+    public const CLI_DEVSCAST_CHAT = 'devscast-community';
 }
