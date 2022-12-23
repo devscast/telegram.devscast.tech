@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use App\Command\AboutCommand;
+use App\Telegram\Str;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use TelegramBot\Api\BotApi;
 use TelegramBot\Api\Exception;
@@ -30,9 +31,9 @@ final class AboutHandler
     public function __invoke(AboutCommand $command): void
     {
         $about = <<< ABOUT
-*Devscast*, 
+Devscast, 
 
-Bâtie autour d'une *communauté* nous construisons un écosystème d'apprentissage,
+Bâtie autour d'une communauté nous construisons un écosystème d'apprentissage,
 accompagnement et recrutement de développeur grâce à la production de contenu dans le contexte local,
 et activités tech ayant un fort impact.
 
@@ -53,7 +54,7 @@ ABOUT;
 
         $this->api->sendMessage(
             chatId: (string) $command->getChatId(),
-            text: $about,
+            text: Str::escape($about),
             parseMode: 'MarkdownV2',
             replyToMessageId: $command->getReplyToMessageId()
         );
