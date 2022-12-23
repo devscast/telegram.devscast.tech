@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Telegram;
 
 /**
  * enum BotTrigger.
@@ -11,7 +11,7 @@ namespace App;
  */
 enum BotTrigger: string
 {
-    case CRON = 'cron';
+    case CLI = 'cli';
     case WEBHOOK = 'webhook';
     case CHAT = 'chat';
 }

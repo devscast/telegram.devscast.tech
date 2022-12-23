@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Telegram;
 
 /**
  * class BotReply.
@@ -11,6 +11,6 @@ namespace App;
  */
 enum BotReply: string
 {
-    case FROM_CHAT = 'dm';
-    case CURRENT_CHAT = 'current';
+    case FROM_CHAT = 'from_chat';
+    case CURRENT_CHAT = 'current_chat';
 }

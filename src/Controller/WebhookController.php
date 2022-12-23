@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Service\Devscast\Event\Output\ContactSubmittedEvent;
-use App\Service\Devscast\Event\Output\ContentCreatedEvent;
-use App\Service\Github\Event\Output\ForkEvent;
-use App\Service\Github\Event\Output\IssuesEvent;
-use App\Service\Github\Event\Output\PingEvent;
-use App\Service\Github\Event\Output\PullRequestEvent;
-use App\Service\Github\Event\Output\PullRequestReviewEvent;
-use App\Service\Github\Event\Output\PushEvent;
-use App\Service\Github\Event\Output\StarEvent;
-use App\Service\Github\Event\Output\StatusEvent;
-use App\Service\Telegram\Event\CommandEvent;
+use App\Telegram\BotCommandEvent;
+use App\Webhook\Devscast\ContactSubmittedEvent;
+use App\Webhook\Devscast\ContentCreatedEvent;
+use App\Webhook\Github\ForkEvent;
+use App\Webhook\Github\IssuesEvent;
+use App\Webhook\Github\PingEvent;
+use App\Webhook\Github\PullRequestEvent;
+use App\Webhook\Github\PullRequestReviewEvent;
+use App\Webhook\Github\PushEvent;
+use App\Webhook\Github\StarEvent;
+use App\Webhook\Github\StatusEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,7 +106,7 @@ final class WebhookController
         if ($entity->getType() === 'bot_command') {
             $command = $this->extractCommandFromMessage($message, $entity);
             $argument = $this->extractArgumentFromCommand($message, $command);
-            $this->dispatcher->dispatch(new CommandEvent($message, $command, $argument));
+            $this->dispatcher->dispatch(new BotCommandEvent($message, $command, $argument));
         }
     }
 

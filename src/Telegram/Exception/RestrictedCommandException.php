@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Telegram;
+namespace App\Telegram\Exception;
 
 /**
  * class RestrictedCommandException.
@@ -11,5 +11,8 @@ namespace App\Telegram;
  */
 final class RestrictedCommandException extends \DomainException
 {
+    /**
+     * @var string
+     */
     protected $message = 'Cette commande est réservée aux administrateurs';
 }

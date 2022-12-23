@@ -7,11 +7,11 @@ namespace App\Telegram;
 use TelegramBot\Api\Types\Message;
 
 /**
- * class MessageEvent.
+ * class BotCommandEvent.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
-final class MessageEvent
+final class BotCommandEvent
 {
     public function __construct(
         private readonly Message $message,

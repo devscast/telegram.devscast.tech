@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Telegram;
+namespace App\Telegram;
 
 /**
  * class TelegramTarget.
@@ -22,22 +22,22 @@ final class ChatId implements \Stringable
             'devscast-community' => $_ENV['TELEGRAM_COMMUNITY_ID'],
         ];
 
-        if (is_int($id)) {
-            $this->id = $id;
-        } else {
-            if (! isset($targets[$id])) {
+        if (intval($id) === 0) {
+            if (! isset($ids[$id])) {
                 throw new \RuntimeException(sprintf(
                     'Invalid target choose one of : %s',
-                    join(',', $ids)
+                    join(',', array_keys($ids))
                 ));
             }
 
-            $this->id = $targets[$id];
+            $this->id = $ids[$id];
+        } else {
+            $this->id = $id;
         }
     }
 
     public function __toString(): string
     {
-        return $this->id;
+        return (string) $this->id;
     }
 }

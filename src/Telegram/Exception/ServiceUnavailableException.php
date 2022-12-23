@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Telegram\Exception;
 
 /**
  * class ServiceUnavailableException.
@@ -11,6 +11,9 @@ namespace App;
  */
 final class ServiceUnavailableException extends \Exception
 {
+    /**
+     * @var string
+     */
     protected $message = 'Service indisponible';
 
     public static function fromException(\Throwable $e): self

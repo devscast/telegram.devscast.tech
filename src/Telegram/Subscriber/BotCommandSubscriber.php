@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Telegram;
+namespace App\Telegram\Subscriber;
 
 use App\Command\AboutCommand;
 use App\Command\CreateProgrammingQuizCommand;
@@ -12,10 +12,13 @@ use App\Command\GetDevscastLatestPodcastCommand;
 use App\Command\GetDevscastLatestPostCommand;
 use App\Command\GetProgrammingMemeCommand;
 use App\Command\ListDevscastUnreadEmailCommand;
+use App\Command\ListGithubOpenIssuesCommand;
 use App\Command\ListHackerNewsTopStoriesCommand;
 use App\Command\RulesCommand;
 use App\Command\SocialsLinksCommand;
 use App\Command\StartCommand;
+use App\Telegram\BotCommandEvent;
+use App\Telegram\Exception\RestrictedCommandException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
@@ -64,6 +67,7 @@ final class BotCommandSubscriber implements EventSubscriberInterface
                 '/covid' => $this->commandBus->dispatch(new GetCovidUpdateCommand(message: $message)),
                 '/quiz' => $this->commandBus->dispatch(new CreateProgrammingQuizCommand(message: $message)),
                 '/emails' => $this->commandBus->dispatch(new ListDevscastUnreadEmailCommand(message: $message)),
+                '/issues' => $this->commandBus->dispatch(new ListGithubOpenIssuesCommand(message: $message)),
                 default => $this->sendCommandNotFound($message->getChat()->getId(), $message->getMessageId())
             };
         } catch (RestrictedCommandException $e) {

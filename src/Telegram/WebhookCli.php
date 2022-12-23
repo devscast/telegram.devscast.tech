@@ -13,7 +13,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use TelegramBot\Api\BotApi;
 
 /**
- * class SetWebhookCli.
+ * class WebhookCli.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
@@ -21,7 +21,7 @@ use TelegramBot\Api\BotApi;
     name: 'bot:telegram:webhook',
     description: 'Set a webhook for telegram bot'
 )]
-final class SetWebhookCli extends Command
+final class WebhookCli extends Command
 {
     public function __construct(
         private readonly BotApi $api

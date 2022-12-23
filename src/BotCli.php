@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Command\AbstractCommand;
+use App\Command\CreateProgrammingQuizCommand;
 use App\Command\GetBitcoinRateCommand;
 use App\Command\GetCovidUpdateCommand;
-use App\Command\ListHackerNewsTopStoriesCommand;
 use App\Command\GetProgrammingMemeCommand;
+use App\Command\ListDevscastUnreadEmailCommand;
 use App\Command\ListGithubOpenIssuesCommand;
-use App\Command\CreateProgrammingQuizCommand;
+use App\Command\ListHackerNewsTopStoriesCommand;
+use App\Telegram\BotTrigger;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -23,23 +26,24 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
- * class BotCommand.
+ * class BotCli.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */
 #[AsCommand(name: 'bot:execute', description: 'execute an available bot command')]
-final class BotCommand extends Command
+final class BotCli extends Command
 {
-    private readonly SymfonyStyle $io;
-
     private const COMMANDS_MAP = [
-        'hacker_news_stories' => ListHackerNewsTopStoriesCommand::class,
-        'bitcoin_rate' => GetBitcoinRateCommand::class,
-        'covid_update' => GetCovidUpdateCommand::class,
+        'hackernews' => ListHackerNewsTopStoriesCommand::class,
+        'bitcoin' => GetBitcoinRateCommand::class,
+        'covid' => GetCovidUpdateCommand::class,
         'github_open_issues' => ListGithubOpenIssuesCommand::class,
         'quiz' => CreateProgrammingQuizCommand::class,
-        'lulz' => GetProgrammingMemeCommand::class,
+        'joieducodes' => GetProgrammingMemeCommand::class,
+        'emails' => ListDevscastUnreadEmailCommand::class,
     ];
+
+    private SymfonyStyle $io;
 
     public function __construct(
         private readonly LoggerInterface $logger,
@@ -54,12 +58,12 @@ final class BotCommand extends Command
         $this->addOption('target', 't', InputOption::VALUE_OPTIONAL, 'telegram target id');
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output): void
     {
         if ($input->getArgument('cmd') !== null) {
             return;
@@ -74,15 +78,18 @@ final class BotCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $cmd = $input->getArgument('cmd');
+        $cmd = strval($input->getArgument('cmd'));
 
         try {
             $stopwatch = new Stopwatch();
             $stopwatch->start('bot_command');
 
-            $command = self::COMMANDS_MAP[$cmd] ??
+            $commandFqcn = self::COMMANDS_MAP[$cmd] ??
                 throw new \InvalidArgumentException(sprintf('unrecognized command %s', $cmd));
-            $this->commandBus->dispatch(new $command());
+
+            /** @var AbstractCommand $command */
+            $command = new $commandFqcn(trigger: BotTrigger::CLI);
+            $this->commandBus->dispatch($command);
 
             $event = $stopwatch->stop('bot_command');
             $this->io->comment(sprintf(

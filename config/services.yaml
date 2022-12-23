@@ -28,10 +28,3 @@ services:
     TelegramBot\Api\BotApi:
         arguments:
             - '%env(resolve:TELEGRAM_BOT_TOKEN)%'
-
-    Ddeboer\Imap\ConnectionInterface:
-        factory: [ 'App\Service\Imap\ImapConnectionFactory', createInstance ]
-
-    App\Service\Telegram\CommandDispatcher:
-        arguments: [!tagged_iterator telegram.command_handler]
-        lazy: true
