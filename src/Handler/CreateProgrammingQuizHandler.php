@@ -50,7 +50,7 @@ final class CreateProgrammingQuizHandler
         );
         $key = str_replace('_correct', '', strval(array_key_first($corrects)));
         $correctAnswerId = strval(array_search($update['answers'][$key], $answers, true));
-        $tags = join(',', array_map(fn ($t) => strtolower($t['name']), $update['tags']));
+        $tags = join(' , ', array_map(fn ($t) => '#' . strtolower($t['name']), $update['tags']));
 
         // send the question to the user
         $message = $this->api->sendMessage(
