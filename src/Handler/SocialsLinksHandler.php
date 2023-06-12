@@ -37,27 +37,27 @@ final class SocialsLinksHandler
             replyMarkup: new InlineKeyboardMarkup(array_chunk([
                 [
                     'text' => 'Twitter',
-                    'url' => 'https://twitter.com/devscasttech',
+                    'url' => 'https://twitter.com/devscast_org',
                 ],
                 [
                     'text' => 'Linkedin',
-                    'url' => 'https://cd.linkedin.com/company/devscast',
+                    'url' => 'https://cd.linkedin.com/company/devscast-community',
                 ],
                 [
                     'text' => 'Instagram',
-                    'url' => 'https://www.instagram.com/devscast.tech',
+                    'url' => 'https://www.instagram.com/devscast_org',
                 ],
                 [
                     'text' => 'Facebook',
-                    'url' => 'https://web.facebook.com/devscast.tech',
+                    'url' => 'https://web.facebook.com/devscast_org',
                 ],
                 [
                     'text' => 'Youtube',
-                    'url' => 'https://www.youtube.com/channel/UCsvWpowwYtjfgS1BOcrX0fw',
+                    'url' => 'https://www.youtube.com/@devscast_org',
                 ],
                 [
                     'text' => 'Tiktok',
-                    'url' => 'https://www.tiktok.com/@devscast.tech',
+                    'url' => 'https://www.tiktok.com/@devscast_org',
                 ],
             ], 2))
         );
