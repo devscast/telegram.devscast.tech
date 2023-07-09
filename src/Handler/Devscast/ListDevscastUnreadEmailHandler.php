@@ -72,7 +72,8 @@ MESSAGE;
                 chatId: (string) $command->getChatId(),
                 text: Str::escape($data),
                 disablePreview: true,
-                replyToMessageId: $command->getReplyToMessageId()
+                replyToMessageId: $command->getReplyToMessageId(),
+                messageThreadId: $command->getMessage()?->getMessageThreadId()
             );
         }
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Telegram;
 
 /**
- * class TelegramTarget.
+ * Class ChatId.
  *
  * @author bernard-ng <bernard@devscast.tech>
  */

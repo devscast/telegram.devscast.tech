@@ -31,20 +31,24 @@ class GetDevscastLatestPodcastHandler
     }
 
     /**
-     * @throws Exception
      * @throws ServiceUnavailableException
-     * @throws InvalidArgumentException
      */
     public function __invoke(GetDevscastLatestPodcastCommand $command): void
     {
-        $data = $this->getData('podcasts');
-        $message = sprintf('Nos derniers podcasts (mise à jour le %s)', $data['last_update']);
+        try {
+            $data = $this->getData('podcasts');
+            $message = sprintf('Nos derniers podcasts (mise à jour le %s)', $data['last_update']);
 
-        $this->api->sendMessage(
-            chatId: (string) $command->getChatId(),
-            text: $message,
-            replyToMessageId: $command->getReplyToMessageId(),
-            replyMarkup: new InlineKeyboardMarkup($data['items']),
-        );
+            $this->api->sendMessage(
+                chatId: (string) $command->getChatId(),
+                text: $message,
+                replyToMessageId: $command->getReplyToMessageId(),
+                replyMarkup: new InlineKeyboardMarkup($data['items']),
+                messageThreadId: $command->getMessage()?->getMessageThreadId()
+            );
+        } catch (\Throwable $e) {
+            $this->logger->error($e->getMessage(), $e->getTrace());
+            throw ServiceUnavailableException::fromException($e);
+        }
     }
 }

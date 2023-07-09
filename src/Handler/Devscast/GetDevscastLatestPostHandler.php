@@ -31,20 +31,25 @@ final class GetDevscastLatestPostHandler
     }
 
     /**
-     * @throws Exception
-     * @throws InvalidArgumentException
      * @throws ServiceUnavailableException
      */
     public function __invoke(GetDevscastLatestPostCommand $command): void
     {
-        $data = $this->getData('posts');
-        $message = sprintf('Nos derniers posts (mise à jour le %s)', $data['last_update']);
+        try {
+            $data = $this->getData('posts');
+            $message = sprintf('Nos derniers posts (mise à jour le %s)', $data['last_update']);
 
-        $this->api->sendMessage(
-            chatId: (string) $command->getChatId(),
-            text: $message,
-            replyToMessageId: $command->getReplyToMessageId(),
-            replyMarkup: new InlineKeyboardMarkup($data['items']),
-        );
+            $this->api->sendMessage(
+                chatId: (string) $command->getChatId(),
+                text: $message,
+                replyToMessageId: $command->getReplyToMessageId(),
+                replyMarkup: new InlineKeyboardMarkup($data['items']),
+                messageThreadId: $command->getMessage()?->getMessageThreadId()
+            );
+        } catch (\Throwable $e) {
+            dump($e);
+            $this->logger->error($e->getMessage(), $e->getTrace());
+            throw ServiceUnavailableException::fromException($e);
+        }
     }
 }

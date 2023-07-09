@@ -49,7 +49,7 @@ final class SocialsLinksHandler
                 ],
                 [
                     'text' => 'Facebook',
-                    'url' => 'https://web.facebook.com/devscast_org',
+                    'url' => 'https://web.facebook.com/devscast.org',
                 ],
                 [
                     'text' => 'Youtube',

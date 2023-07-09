@@ -7,6 +7,7 @@ namespace App\Handler;
 use App\Command\ListHackerNewsTopStoriesCommand;
 use App\Telegram\Exception\ServiceUnavailableException;
 use App\Telegram\Str;
+use App\Telegram\Topic;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use TelegramBot\Api\BotApi;
@@ -49,7 +50,8 @@ final class ListHackerNewsTopStoriesHandler
             text: "*10 stories intéressants* \n\n{$stories}\n\n _source: hackernews_",
             parseMode: 'MarkdownV2',
             disablePreview: true,
-            replyToMessageId: $command->getReplyToMessageId()
+            replyToMessageId: $command->getReplyToMessageId(),
+            messageThreadId: Topic::resources()->toInt()
         );
     }
 

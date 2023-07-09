@@ -16,7 +16,7 @@ final class GetBitcoinRateCommand extends AbstractCommand
 {
     public const NAME = 'bitcoin';
 
-    public const RESTRICTED = false;
+    public const RESTRICTED = true;
 
     public const TRIGGERS = [BotTrigger::CHAT, BotTrigger::CLI];
 

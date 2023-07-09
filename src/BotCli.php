@@ -7,7 +7,6 @@ namespace App;
 use App\Command\AbstractCommand;
 use App\Command\CreateProgrammingQuizCommand;
 use App\Command\GetBitcoinRateCommand;
-use App\Command\GetCovidUpdateCommand;
 use App\Command\GetProgrammingMemeCommand;
 use App\Command\ListDevscastUnreadEmailCommand;
 use App\Command\ListGithubOpenIssuesCommand;
@@ -36,7 +35,6 @@ final class BotCli extends Command
     private const COMMANDS_MAP = [
         'hackernews' => ListHackerNewsTopStoriesCommand::class,
         'bitcoin' => GetBitcoinRateCommand::class,
-        'covid' => GetCovidUpdateCommand::class,
         'github_open_issues' => ListGithubOpenIssuesCommand::class,
         'quiz' => CreateProgrammingQuizCommand::class,
         'joieducodes' => GetProgrammingMemeCommand::class,
@@ -78,7 +76,8 @@ final class BotCli extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $cmd = strval($input->getArgument('cmd'));
+        /** @var string $cmd */
+        $cmd = $input->getArgument('cmd');
 
         try {
             $stopwatch = new Stopwatch();

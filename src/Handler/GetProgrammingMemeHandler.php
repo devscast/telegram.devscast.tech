@@ -6,6 +6,7 @@ namespace App\Handler;
 
 use App\Command\GetProgrammingMemeCommand;
 use App\Telegram\Exception\ServiceUnavailableException;
+use App\Telegram\Topic;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -41,7 +42,8 @@ final class GetProgrammingMemeHandler
             chatId: (string) $command->getChatId(),
             document: new \CURLFile($update['image_url'], mime_type: 'image/gif'),
             caption: (string) $update['title'],
-            replyToMessageId: $command->getReplyToMessageId()
+            replyToMessageId: $command->getReplyToMessageId(),
+            messageThreadId: Topic::humor()->toInt()
         );
     }
 

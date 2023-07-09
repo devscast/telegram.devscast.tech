@@ -41,7 +41,7 @@ final class WebhookCli extends Command
         $url = $url === null ? $_ENV['TELEGRAM_WEBHOOK_URL'] : $url;
 
         try {
-            $this->api->setWebhook($url);
+            $this->api->setWebhook(url: $url, dropPendingUpdates: true);
             $message = sprintf('webhook %s', $url);
             $io->success($message);
         } catch (\Throwable $e) {

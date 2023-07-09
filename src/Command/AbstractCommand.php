@@ -31,7 +31,7 @@ abstract class AbstractCommand
         public readonly BotTrigger $trigger = BotTrigger::CHAT,
         public readonly ?Message $message = null,
     ) {
-        if (! in_array($this->trigger, static::TRIGGERS, true)) {
+        if (!in_array($this->trigger, static::TRIGGERS, true)) {
             throw new \RuntimeException(sprintf(
                 'Invalid trigger for command %s, choose one of : %s',
                 static::NAME,
@@ -44,8 +44,8 @@ abstract class AbstractCommand
         }
 
         if ($this->trigger === BotTrigger::CHAT && static::RESTRICTED) {
-            $from = $this->message?->getFrom()->getId();
-            if (! in_array((string) $from, explode(',', $_ENV['DEVSCAST_WHITELISTED_IDS']), true)) {
+            $from = $this->message?->getFrom()?->getId();
+            if (!in_array((string)$from, explode(',', $_ENV['DEVSCAST_WHITELISTED_IDS']), true)) {
                 throw new RestrictedCommandException();
             }
         }
@@ -70,9 +70,9 @@ abstract class AbstractCommand
     {
         if ($this->trigger === BotTrigger::CHAT && $this->message !== null) {
             if (static::REPLY_MODE === BotReply::CURRENT_CHAT) {
-                return new ChatId($this->message->getChat()->getId());
+                return new ChatId((int) $this->message->getChat()->getId());
             }
-            return new ChatId($this->message->getFrom()->getId());
+            return new ChatId((int) $this->message->getFrom()?->getId());
         }
 
         return new ChatId(static::CLI_DEVSCAST_CHAT);
@@ -84,6 +84,8 @@ abstract class AbstractCommand
             return null;
         }
 
-        return $this->message?->getMessageId();
+        /** @var int|null $id */
+        $id = $this->message?->getMessageId();
+        return $id;
     }
 }

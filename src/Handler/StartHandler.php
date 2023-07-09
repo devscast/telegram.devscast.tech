@@ -55,7 +55,8 @@ MENU;
             chatId: (string) $command->getChatId(),
             text: Str::escape($menu),
             parseMode: 'MarkdownV2',
-            replyToMessageId: $command->getReplyToMessageId()
+            replyToMessageId: $command->getReplyToMessageId(),
+            messageThreadId: $command->getMessage()?->getMessageThreadId()
         );
     }
 }

@@ -6,6 +6,7 @@ namespace App\Handler;
 
 use App\Command\RulesCommand;
 use App\Telegram\Str;
+use App\Telegram\Topic;
 use Exception;
 use InvalidArgumentException;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -46,7 +47,8 @@ RULES;
             chatId: (string) $command->getChatId(),
             text: Str::escape($rules),
             parseMode: 'MarkdownV2',
-            replyToMessageId: $command->getReplyToMessageId()
+            replyToMessageId: $command->getReplyToMessageId(),
+            messageThreadId: Topic::quiz()->toInt(),
         );
     }
 }

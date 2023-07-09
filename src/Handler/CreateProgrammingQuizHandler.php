@@ -6,9 +6,11 @@ namespace App\Handler;
 
 use App\Command\CreateProgrammingQuizCommand;
 use App\Telegram\Exception\ServiceUnavailableException;
+use App\Telegram\Topic;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use TelegramBot\Api\BotApi;
+use TelegramBot\Api\{BotApi, Exception, HttpException, InvalidArgumentException, InvalidJsonException};
+use Throwable;
 
 /**
  * class QuizHandler.
@@ -31,10 +33,10 @@ final class CreateProgrammingQuizHandler
 
     /**
      * @throws ServiceUnavailableException
-     * @throws \TelegramBot\Api\Exception
-     * @throws \TelegramBot\Api\HttpException
-     * @throws \TelegramBot\Api\InvalidArgumentException
-     * @throws \TelegramBot\Api\InvalidJsonException
+     * @throws Exception
+     * @throws HttpException
+     * @throws InvalidArgumentException
+     * @throws InvalidJsonException
      */
     public function __invoke(CreateProgrammingQuizCommand $command): void
     {
@@ -50,12 +52,13 @@ final class CreateProgrammingQuizHandler
         );
         $key = str_replace('_correct', '', strval(array_key_first($corrects)));
         $correctAnswerId = strval(array_search($update['answers'][$key], $answers, true));
-        $tags = join(' , ', array_map(fn ($t) => '#' . strtolower($t['name']), $update['tags']));
+        $tags = join(' , ', array_map(fn ($t) => sprintf("#%s", strtolower($t['name'])), $update['tags']));
 
         // send the question to the user
         $message = $this->api->sendMessage(
             chatId: (string) $command->getChatId(),
             text: "{$update['question']} (tags: {$tags})",
+            messageThreadId: Topic::quiz()->toInt(),
         );
 
         // send the answers to the user
@@ -66,7 +69,8 @@ final class CreateProgrammingQuizHandler
             isAnonymous: true,
             type: 'quiz',
             correctOptionId: $correctAnswerId,
-            replyToMessageId: $message->getMessageId(),
+            replyToMessageId: (int) $message->getMessageId(),
+            messageThreadId: Topic::quiz()->toInt(),
         );
     }
 
@@ -83,7 +87,7 @@ final class CreateProgrammingQuizHandler
                     'difficulty' => 'easy',
                 ],
             ])->toArray()[0];
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             throw ServiceUnavailableException::fromException($e);
         }
     }

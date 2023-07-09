@@ -6,6 +6,7 @@ namespace App\Handler;
 
 use App\Command\GetBitcoinRateCommand;
 use App\Telegram\Exception\ServiceUnavailableException;
+use App\Telegram\Topic;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use TelegramBot\Api\BotApi;
@@ -40,7 +41,9 @@ final class GetBitcoinRateHandler
         $this->api->sendMessage(
             chatId: (string) $command->getChatId(),
             text: "🤑 1 BTC == {$update['bpi']['USD']['rate']} USD",
-            replyToMessageId: $command->getReplyToMessageId()
+            replyToMessageId: $command->getReplyToMessageId(),
+            disableNotification: true,
+            messageThreadId: Topic::resources()->toInt()
         );
     }
 

@@ -7,7 +7,6 @@ namespace App\Telegram\Subscriber;
 use App\Command\AboutCommand;
 use App\Command\CreateProgrammingQuizCommand;
 use App\Command\GetBitcoinRateCommand;
-use App\Command\GetCovidUpdateCommand;
 use App\Command\GetDevscastLatestPodcastCommand;
 use App\Command\GetDevscastLatestPostCommand;
 use App\Command\GetProgrammingMemeCommand;
@@ -21,6 +20,7 @@ use App\Telegram\BotCommandEvent;
 use App\Telegram\Exception\RestrictedCommandException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use TelegramBot\Api\BotApi;
@@ -55,41 +55,41 @@ final class BotCommandSubscriber implements EventSubscriberInterface
 
         try {
             match ($command) {
-                '/start' => $this->commandBus->dispatch(new StartCommand(message: $message)),
-                '/about' => $this->commandBus->dispatch(new AboutCommand(message: $message)),
-                '/socials' => $this->commandBus->dispatch(new SocialsLinksCommand(message: $message)),
-                '/rules' => $this->commandBus->dispatch(new RulesCommand(message: $message)),
-                '/posts' => $this->commandBus->dispatch(new GetDevscastLatestPostCommand(message: $message)),
-                '/podcasts' => $this->commandBus->dispatch(new GetDevscastLatestPodcastCommand(message: $message)),
-                '/hackernews' => $this->commandBus->dispatch(new ListHackerNewsTopStoriesCommand(message: $message)),
-                '/joieducodes' => $this->commandBus->dispatch(new GetProgrammingMemeCommand(message: $message)),
-                '/bitcoin' => $this->commandBus->dispatch(new GetBitcoinRateCommand(message: $message)),
-                '/covid' => $this->commandBus->dispatch(new GetCovidUpdateCommand(message: $message)),
-                '/quiz' => $this->commandBus->dispatch(new CreateProgrammingQuizCommand(message: $message)),
-                '/emails' => $this->commandBus->dispatch(new ListDevscastUnreadEmailCommand(message: $message)),
+                '/start' => $this->dispatchSync(new StartCommand(message: $message)),
+                '/about' => $this->dispatchSync(new AboutCommand(message: $message)),
+                '/socials' => $this->dispatchSync(new SocialsLinksCommand(message: $message)),
+                '/rules' => $this->dispatchSync(new RulesCommand(message: $message)),
+                '/posts' => $this->dispatchSync(new GetDevscastLatestPostCommand(message: $message)),
+                '/podcasts' => $this->dispatchSync(new GetDevscastLatestPodcastCommand(message: $message)),
+                '/hackernews' => $this->dispatchSync(new ListHackerNewsTopStoriesCommand(message: $message)),
+                '/joieducodes' => $this->dispatchSync(new GetProgrammingMemeCommand(message: $message)),
+                '/bitcoin' => $this->dispatchSync(new GetBitcoinRateCommand(message: $message)),
+                '/quiz' => $this->dispatchSync(new CreateProgrammingQuizCommand(message: $message)),
+                '/emails' => $this->dispatchSync(new ListDevscastUnreadEmailCommand(message: $message)),
                 '/issues' => $this->commandBus->dispatch(new ListGithubOpenIssuesCommand(message: $message)),
-                default => $this->sendCommandNotFound($message->getChat()->getId(), $message->getMessageId())
+                default => $this->sendCommandNotFound(
+                    chatId: (int)$message->getChat()->getId(),
+                    messageId: (int)$message->getMessageId()
+                )
             };
         } catch (RestrictedCommandException $e) {
             $this->api->sendMessage(
                 chatId: $message->getChat()->getId(),
                 text: $e->getMessage(),
-                replyToMessageId: $message->getMessageId()
+                replyToMessageId: (int)$message->getMessageId()
             );
-        } catch (HandlerFailedException $e) {
+        } catch (\Throwable $e) {
             $this->api->sendMessage(
                 chatId: $message->getChat()->getId(),
                 text: "💀 sorry i'm down !",
-                replyToMessageId: $message->getMessageId()
+                replyToMessageId: (int)$message->getMessageId()
             );
-        } catch (\Throwable $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         }
     }
 
     /**
-     * @throws Exception
-     * @throws InvalidArgumentException
+     * @throws \Throwable
      */
     private function sendCommandNotFound(int|string $chatId, int $messageId): void
     {
@@ -98,5 +98,24 @@ final class BotCommandSubscriber implements EventSubscriberInterface
             text: '💀 Error 404 !',
             replyToMessageId: $messageId
         );
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    private function dispatchSync(object $command): ?Envelope
+    {
+        try {
+            return $this->commandBus->dispatch($command);
+        } catch (HandlerFailedException $e) {
+            while ($e instanceof HandlerFailedException) {
+                $e = $e->getPrevious();
+            }
+            if (null !== $e) {
+                throw $e;
+            }
+
+            return null;
+        }
     }
 }

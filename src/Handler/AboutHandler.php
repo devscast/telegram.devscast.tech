@@ -31,11 +31,11 @@ final class AboutHandler
     public function __invoke(AboutCommand $command): void
     {
         $about = <<< ABOUT
-Devscast, 
+Devscast Community, 
 
-Bâtie autour d'une communauté nous construisons un écosystème d'apprentissage,
-accompagnement et recrutement de développeur grâce à la production de contenu dans le contexte local,
-et activités tech ayant un fort impact.
+Un espace pour les développeurs afin d'apprendre, de grandir et de résoudre des problèmes ensemble
+
+Devscast, créé pour construire une communauté de développeurs compétents qui peuvent travailler ensemble pour résoudre des problèmes sociaux à grande échelle.
 
 Le but:
 - Communiquer, discuter des nouvelles et des technologies.
@@ -46,17 +46,18 @@ Le but:
 Nos plateformes:
 - [Notre site](https://devscast.tech)
 - [Notre Github](https://github.com/devscast)
-- [Communauté (WIP...)](https://devscast.org)
+- [Notre Plateforme](https://devscast.org)
 
 Nous Contactez:
-- contact@devscast.tech
+- community@devscast.org
 ABOUT;
 
         $this->api->sendMessage(
             chatId: (string) $command->getChatId(),
             text: Str::escape($about),
             parseMode: 'MarkdownV2',
-            replyToMessageId: $command->getReplyToMessageId()
+            replyToMessageId: $command->getReplyToMessageId(),
+            messageThreadId: $command->getMessage()?->getMessageThreadId()
         );
     }
 }

@@ -20,7 +20,7 @@ final class GetDevscastLatestPostCommand extends AbstractCommand
 
     public const TRIGGERS = [BotTrigger::CHAT, BotTrigger::CLI];
 
-    public const REPLY_MODE = BotReply::FROM_CHAT;
+    public const REPLY_MODE = BotReply::CURRENT_CHAT;
 
     public const CLI_DEVSCAST_CHAT = 'devscast-community';
 }

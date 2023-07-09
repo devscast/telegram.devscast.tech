@@ -114,7 +114,7 @@ final class WebhookController
     {
         return trim(
             string: substr(
-                string: $message->getText(),
+                string: (string) $message->getText(),
                 offset: $entity->getOffset(),
                 length: $entity->getLength()
             )
@@ -127,7 +127,7 @@ final class WebhookController
             string: str_ireplace(
                 search: $command,
                 replace: '',
-                subject: $message->getText()
+                subject: (string) $message->getText()
             )
         );
     }
