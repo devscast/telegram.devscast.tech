@@ -23,7 +23,7 @@
     "symfony/css-selector": "7.1.*",
     "symfony/dom-crawler": "7.1.*",
     "symfony/dotenv": "7.1.*",
-    "symfony/flex": "^1.19",
+    "symfony/flex": "*",
     "symfony/framework-bundle": "7.1.*",
     "symfony/http-client": "*",
     "symfony/messenger": "7.1.*",
@@ -46,7 +46,7 @@
     "symfony/var-dumper": "7.1.*",
     "symfony/web-profiler-bundle": "7.1.*",
     "symplify/easy-coding-standard": "^11.1",
-    "vimeo/psalm": "^4.30"
+    "vimeo/psalm": "^5.25"
   },
   "config": {
     "optimize-autoloader": true,
