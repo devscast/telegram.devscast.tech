@@ -6,14 +6,6 @@ namespace App\Telegram\Subscriber;
 
 use App\Webhook\Devscast\ContactSubmittedEvent;
 use App\Webhook\Devscast\ContentCreatedEvent;
-use App\Webhook\Github\ForkEvent;
-use App\Webhook\Github\IssuesEvent;
-use App\Webhook\Github\PingEvent;
-use App\Webhook\Github\PullRequestEvent;
-use App\Webhook\Github\PullRequestReviewEvent;
-use App\Webhook\Github\PushEvent;
-use App\Webhook\Github\StarEvent;
-use App\Webhook\Github\StatusEvent;
 use App\Webhook\WebhookEventInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -40,16 +32,6 @@ final class WebhookSubscriber implements EventSubscriberInterface
             // Devscast
             ContentCreatedEvent::class => 'onEvent',
             ContactSubmittedEvent::class => 'onEvent',
-
-            // Github
-            PingEvent::class => 'onEvent',
-            PushEvent::class => 'onEvent',
-            IssuesEvent::class => 'onEvent',
-            ForkEvent::class => 'onEvent',
-            PullRequestEvent::class => 'onEvent',
-            PullRequestReviewEvent::class => 'onEvent',
-            StarEvent::class => 'onEvent',
-            StatusEvent::class => 'onEvent',
         ];
     }
 
