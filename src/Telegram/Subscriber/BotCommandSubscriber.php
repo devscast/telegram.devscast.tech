@@ -11,7 +11,6 @@ use App\Command\GetDevscastLatestPodcastCommand;
 use App\Command\GetDevscastLatestPostCommand;
 use App\Command\GetProgrammingMemeCommand;
 use App\Command\ListDevscastUnreadEmailCommand;
-use App\Command\ListGithubOpenIssuesCommand;
 use App\Command\ListHackerNewsTopStoriesCommand;
 use App\Command\RulesCommand;
 use App\Command\SocialsLinksCommand;
@@ -66,7 +65,6 @@ final class BotCommandSubscriber implements EventSubscriberInterface
                 '/bitcoin' => $this->dispatchSync(new GetBitcoinRateCommand(message: $message)),
                 '/quiz' => $this->dispatchSync(new CreateProgrammingQuizCommand(message: $message)),
                 '/emails' => $this->dispatchSync(new ListDevscastUnreadEmailCommand(message: $message)),
-                '/issues' => $this->commandBus->dispatch(new ListGithubOpenIssuesCommand(message: $message)),
                 default => $this->sendCommandNotFound(
                     chatId: (int)$message->getChat()->getId(),
                     messageId: (int)$message->getMessageId()

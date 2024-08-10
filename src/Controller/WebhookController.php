@@ -7,14 +7,6 @@ namespace App\Controller;
 use App\Telegram\BotCommandEvent;
 use App\Webhook\Devscast\ContactSubmittedEvent;
 use App\Webhook\Devscast\ContentCreatedEvent;
-use App\Webhook\Github\ForkEvent;
-use App\Webhook\Github\IssuesEvent;
-use App\Webhook\Github\PingEvent;
-use App\Webhook\Github\PullRequestEvent;
-use App\Webhook\Github\PullRequestReviewEvent;
-use App\Webhook\Github\PushEvent;
-use App\Webhook\Github\StarEvent;
-use App\Webhook\Github\StatusEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,32 +40,6 @@ final class WebhookController
         $event = match ($event) {
             'contact_form_submitted' => ContactSubmittedEvent::fromArray($data),
             'content_created' => ContentCreatedEvent::fromArray($data),
-            default => null
-        };
-
-        if ($event !== null) {
-            $this->dispatcher->dispatch($event);
-        }
-
-        return new Response(null, Response::HTTP_OK);
-    }
-
-    #[Route('/github', name: 'github')]
-    public function github(Request $request): Response
-    {
-        /** @var array $data */
-        $data = json_decode(json: (string) $request->getContent(), associative: true) ?: [];
-        $event = (string) $request->headers->get('X-GitHub-Event', '');
-
-        $event = match ($event) {
-            'ping' => new PingEvent($data),
-            'issues' => new IssuesEvent($data),
-            'push' => new PushEvent($data),
-            'pull_request' => new PullRequestEvent($data),
-            'pull_request_review' => new PullRequestReviewEvent($data),
-            'fork' => new ForkEvent($data),
-            'star' => new StarEvent($data),
-            'status' => new StatusEvent($data),
             default => null
         };
 

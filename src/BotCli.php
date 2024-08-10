@@ -9,7 +9,6 @@ use App\Command\CreateProgrammingQuizCommand;
 use App\Command\GetBitcoinRateCommand;
 use App\Command\GetProgrammingMemeCommand;
 use App\Command\ListDevscastUnreadEmailCommand;
-use App\Command\ListGithubOpenIssuesCommand;
 use App\Command\ListHackerNewsTopStoriesCommand;
 use App\Telegram\BotTrigger;
 use Psr\Log\LoggerInterface;
@@ -35,7 +34,6 @@ final class BotCli extends Command
     private const COMMANDS_MAP = [
         'hackernews' => ListHackerNewsTopStoriesCommand::class,
         'bitcoin' => GetBitcoinRateCommand::class,
-        'github_open_issues' => ListGithubOpenIssuesCommand::class,
         'quiz' => CreateProgrammingQuizCommand::class,
         'joieducodes' => GetProgrammingMemeCommand::class,
         'emails' => ListDevscastUnreadEmailCommand::class,
