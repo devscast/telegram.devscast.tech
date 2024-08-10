@@ -8,8 +8,8 @@ user := $(shell id -u)
 group := $(shell id -g)
 
 ifeq ($(is_docker), 1)
-	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
-	de := docker-compose exec
+	dc := USER_ID=$(user) GROUP_ID=$(group) docker compose
+	de := docker compose exec
 	dr := $(dc) run --rm
 	sfc := $(dr) php bin/console
 	node := $(dr) --user="$(user)" node
