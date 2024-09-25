@@ -23,10 +23,4 @@ final class DefaultController extends AbstractController
     {
         return new RedirectResponse('https://t.me/devscast');
     }
-
-    #[Route('/hello', name: 'app_hello', methods: ['GET'])]
-    public function hello(): Response
-    {
-        return new Response('Hello, World!');
-    }
 }

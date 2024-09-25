@@ -39,7 +39,6 @@ final class WebhookController
 
         $event = match ($event) {
             'contact_form_submitted' => ContactSubmittedEvent::fromArray($data),
-            'content_created' => ContentCreatedEvent::fromArray($data),
             default => null
         };
 
