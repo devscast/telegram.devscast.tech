@@ -38,7 +38,6 @@ Hello, I'm DevscastNotifierBot
 /about - à propos de devscast
 /socials - nos réseaux sociaux
 /rules - les règles de la communauté
-/posts - nos derniers articles
 /podcasts - nos derniers podcasts
 /hackernews - 10 stories de hackernews
 /bitcoin - le cours du bitcoin

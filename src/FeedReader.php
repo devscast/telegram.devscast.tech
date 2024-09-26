@@ -23,7 +23,6 @@ trait FeedReader
         try {
             $feed = Reader::import(match ($type) {
                 'podcasts' => $_ENV['DEVSCAST_PODCASTS_RSS_URL'],
-                'posts' => $_ENV['DEVSCAST_POSTS_RSS_URL'],
                 default => throw new \InvalidArgumentException(
                     sprintf('Unknown %s type only (podcasts, posts) are supported', $type)
                 )

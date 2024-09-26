@@ -30,7 +30,6 @@ final class WebhookSubscriber implements EventSubscriberInterface
     {
         return [
             // Devscast
-            ContentCreatedEvent::class => 'onEvent',
             ContactSubmittedEvent::class => 'onEvent',
         ];
     }

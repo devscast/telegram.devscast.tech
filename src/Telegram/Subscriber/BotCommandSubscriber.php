@@ -58,7 +58,6 @@ final class BotCommandSubscriber implements EventSubscriberInterface
                 '/about' => $this->dispatchSync(new AboutCommand(message: $message)),
                 '/socials' => $this->dispatchSync(new SocialsLinksCommand(message: $message)),
                 '/rules' => $this->dispatchSync(new RulesCommand(message: $message)),
-                '/posts' => $this->dispatchSync(new GetDevscastLatestPostCommand(message: $message)),
                 '/podcasts' => $this->dispatchSync(new GetDevscastLatestPodcastCommand(message: $message)),
                 '/hackernews' => $this->dispatchSync(new ListHackerNewsTopStoriesCommand(message: $message)),
                 '/joieducodes' => $this->dispatchSync(new GetProgrammingMemeCommand(message: $message)),
